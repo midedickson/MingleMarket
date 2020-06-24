@@ -1,15 +1,18 @@
 import ReactDOM from "react-dom";
-import Chat from "./containers/Chat";
+import App from "./App";
 import React, { Component } from "react";
+import reducer from "./store/reducers/auth";
+import { createStore, compose, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
 import WebSocketInstance from "./websocket";
 
-export class App extends Component {
-  componentDidMount() {
-    WebSocketInstance.connect();
-  }
-  render() {
-    return <Chat />;
-  }
-}
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+const app = (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(app, document.getElementById("app"));
