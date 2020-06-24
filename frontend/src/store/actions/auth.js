@@ -41,9 +41,7 @@ export const authLogin = (username, password) => {
     axios
       .post("http://localhost:8000/rest-auth/login/", {
         username: username,
-        email: email,
-        password1: password1,
-        password2: password2,
+        password: password,
       })
       .then((res) => {
         const token = res.data.key;
@@ -65,7 +63,9 @@ export const authSignup = (username, email, password1, password2) => {
     axios
       .post("http://localhost:8000/rest-auth/registration/", {
         username: username,
-        password: password,
+        email: email,
+        password1: password1,
+        password2: password2,
       })
       .then((res) => {
         const token = res.data.key;
