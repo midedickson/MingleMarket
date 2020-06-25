@@ -73,11 +73,21 @@ body {
 #frame #sidepanel #profile .wrap {
   height: 250px;
   line-height: 65px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-color: #2c3e50 #243140;
+  scrollbar-width: thin;
   -moz-transition: 0.3s height ease;
   -o-transition: 0.3s height ease;
   -webkit-transition: 0.3s height ease;
   transition: 0.3s height ease;
+}
+#frame #sidepanel #profile .wrap::-webkit-scrollbar {
+  width: 8px;
+  background: #2c3e50;
+}
+#frame #sidepanel #profile .wrap::-webkit-scrollbar-thumb {
+  background-color: #243140;
 }
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile .wrap {
@@ -403,6 +413,8 @@ body {
     height: calc(100% - 149px);
     overflow-y: scroll;
     overflow-x: hidden;
+    scrollbar-color: #2c3e50 #243140;
+    scrollbar-width: thin;
   }
   #frame #sidepanel #contacts::-webkit-scrollbar {
     display: none;
@@ -616,8 +628,9 @@ body {
   max-height: calc(100% - 93px);
   overflow-y: scroll;
   overflow-x: hidden;
+  scrollbar-color: #2c3e50 #243140;
+  scrollbar-width: thin;
   width: 100%;
-  padding-bottom: 600px;
 }
 @media screen and (max-width: 735px) {
   #frame .content .messages {
@@ -634,7 +647,7 @@ body {
 #frame .content .messages ul li {
   display: inline-block;
   clear: both;
-  /* float: left; */
+  float: left;
   margin: 15px 15px 5px 15px;
   width: calc(100% - 25px);
   font-size: 0.9em;
