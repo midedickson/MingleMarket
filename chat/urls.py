@@ -1,5 +1,5 @@
 from django.urls import path
-
+s
 from . import views
 app_name = 'chat'
 
