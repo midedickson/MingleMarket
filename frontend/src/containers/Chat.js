@@ -2,21 +2,29 @@ import React from "react";
 import { connect } from "react-redux";
 import WebSocketInstance from "../websocket";
 import Hoc from "../hoc/hoc";
+// WebSocketInstance.connect();
 
 class Chat extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { message: "" };
-
+  state = { message: "" }
+  initialiseChat() {
     this.waitForSocketConnection(() => {
       WebSocketInstance.addCallbacks(
         this.setMessages.bind(this),
         this.addMessage.bind(this)
       );
-      WebSocketInstance.fetchMessages(this.props.currentUser);
+      WebSocketInstance.fetchMessages(this.props.username, this.props.match.params.chatID);
     });
+    WebSocketInstance.connect(this.props.match.params.chatID)
   }
-
+  constructor(props) {
+    super(props);
+    this.initialiseChat()
+  }
+  UNSAFE_componentWillReceiveProps(newProps) {
+    console.log(newProps);
+    this.initialiseChat()
+    
+  }
   waitForSocketConnection(callback) {
     const component = this;
     setTimeout(function () {
@@ -35,7 +43,7 @@ class Chat extends React.Component {
     this.setState({ messages: [...this.state.messages, message] });
   }
 
-  setMessages(messages) {
+  setMessages(messages) {    
     this.setState({ messages: messages.reverse() });
   }
 
@@ -48,7 +56,7 @@ class Chat extends React.Component {
   sendMessageHandler = (e) => {
     e.preventDefault();
     const messageObject = {
-      from: "admin",
+      from: this.props.username,
       content: this.state.message,
     };
     WebSocketInstance.newChatMessage(messageObject);

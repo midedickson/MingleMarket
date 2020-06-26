@@ -10,7 +10,6 @@ import WebSocketInstance from "./websocket";
 class App extends React.Component {
   componentDidMount() {
     this.props.onTryAutoSignup();
-    WebSocketInstance.connect();
   }
 
   render() {

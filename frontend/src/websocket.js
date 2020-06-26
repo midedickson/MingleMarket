@@ -10,8 +10,9 @@ class WebSocketService {
   constructor() {
     this.socketRef = null;
   }
-  connect() {
-    const path = "ws://localhost:8000/ws/chat/lobby/";
+  connect(chatURL) {
+    const path = `ws://localhost:8000/ws/chat/${chatURL}/`;
+    console.log(path)
     this.socketRef = new WebSocket(path);
     this.socketRef.onopen = () => {
       console.log("websocket is open");
@@ -25,7 +26,7 @@ class WebSocketService {
     };
     this.socketRef.onclose = () => {
       console.log("websocket is closed");
-      this.connect;
+      this.connect();
     };
   }
 
@@ -43,8 +44,8 @@ class WebSocketService {
     }
   }
 
-  fetchMessages(username) {
-    this.sendMessage({ command: "fetch_messages", username: username });
+  fetchMessages(username, chatId) {
+    this.sendMessage({ command: "fetch_messages", username: username, chatId: chatId });
   }
 
   newChatMessage(message) {

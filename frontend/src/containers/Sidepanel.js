@@ -4,14 +4,39 @@ import * as actions from "../store/actions/auth";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import Contact from "../components/Contact";
+import axios from 'axios'
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 class Sidepanel extends React.Component {
   state = {
     loginForm: true,
+    chats: []
   };
 
+  componentDidMount() {
+    if (this.props.token !== null &&  this.props.username !== null){
+      this.getUserChats(this.props.token, this.props.username)
+    }
+  }
+  UNSAFE_componentWillReceiveProps(newProps) {
+    if (newProps.token !== null &&  newProps.username !== null){
+      this.getUserChats(newProps.token, newProps.username)
+    }
+  }
+
+  getUserChats = (token, username) => {
+    axios.defaults.headers = {
+      'Content-Type':'application/json',
+      Authorization: `Token ${token}`
+    }
+    axios.get(`http://localhost:8000/chat/?username=${username}`)
+    .then((res) => {
+      this.setState({
+        chats: res.data
+      })
+    })
+  }
   changeForm = () => {
     this.setState({ loginForm: !this.state.loginForm });
   };
@@ -31,6 +56,17 @@ class Sidepanel extends React.Component {
   };
 
   render() {
+    const activeChats = this.state.chats.map(c => {
+      return (
+        <Contact
+            key={c.id}
+              name="Louis Litt"
+              status="online"
+              picURL="http://emilcarlsson.se/assets/louislitt.png"
+              chatURL={`/${c.id}`}
+            />
+      )
+    })
     return (
       <div id="sidepanel">
         <div id="profile">
@@ -123,7 +159,8 @@ class Sidepanel extends React.Component {
         </div>
         <div id="contacts">
           <ul>
-            <Contact
+            {activeChats}
+            {/* <Contact
               name="Louis Litt"
               status="online"
               picURL="http://emilcarlsson.se/assets/louislitt.png"
@@ -135,7 +172,7 @@ class Sidepanel extends React.Component {
               status="online"
               picURL="http://emilcarlsson.se/assets/harveyspecter.png"
               chatURL="/harvey"
-            />
+            /> */}
           </ul>
         </div>
         <div id="bottom-bar">
@@ -157,6 +194,8 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.token !== null,
     loading: state.loading,
+    token: state.token,
+    username: state.username
   };
 };
 
