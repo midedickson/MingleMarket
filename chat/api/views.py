@@ -21,7 +21,7 @@ def get_user_contact(username):
 class ChatListView(ListAPIView):
     serializer_class = ChatSerializer
     permission_classes = (permissions.AllowAny, )
-    
+
     def get_queryset(self):
         queryset = Chat.objects.all()
         username = self.request.query_params.get('username', None)
@@ -40,7 +40,7 @@ class ChatDetailView(RetrieveAPIView):
 class ChatCreateView(CreateAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
 
 class ChatUpdateView(UpdateAPIView):

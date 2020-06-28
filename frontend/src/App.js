@@ -1,15 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import * as actions from "./store/actions/auth";
+import * as authActions from "./store/actions/auth";
+import * as navActions from "./store/actions/nav";
+import * as msgActions from "./store/actions/message";
 import BaseRouter from "./routes";
 import Sidepanel from "./containers/Sidepanel";
 import Profile from "./containers/Profile";
 import WebSocketInstance from "./websocket";
+import AddChatModal from "./containers/Popup";
 
 class App extends React.Component {
   componentDidMount() {
     this.props.onTryAutoSignup();
+  }
+
+  constructor(props) {
+    super(props);
+    WebSocketInstance.addCallbacks(
+      this.props.setMessages.bind(this),
+      this.props.addMessage.bind(this)
+    );
   }
 
   render() {
@@ -18,6 +29,10 @@ class App extends React.Component {
         <div id="frame">
           <Sidepanel />
           <div className="content">
+            <AddChatModal
+              isVisible={this.props.showAddChatPopup}
+              close={this.props.closeAddChatPopup}
+            />
             <Profile />
             <BaseRouter />
           </div>
@@ -27,10 +42,19 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    showAddChatPopup: state.nav.showAddChatPopup,
+    authenticated: state.auth.token,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState()),
+    onTryAutoSignup: () => dispatch(authActions.authCheckState()),
+    closeAddChatPopup: () => dispatch(navActions.closeAddChatPopup()),
+    addMessage: (message) => dispatch(msgActions.addMessage(message)),
+    setMessages: (messages) => dispatch(msgActions.setMessages(messages)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

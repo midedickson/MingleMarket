@@ -2,28 +2,37 @@ import React from "react";
 import { connect } from "react-redux";
 import WebSocketInstance from "../websocket";
 import Hoc from "../hoc/hoc";
-// WebSocketInstance.connect();
 
 class Chat extends React.Component {
-  state = { message: "" }
+  state = { message: "" };
   initialiseChat() {
     this.waitForSocketConnection(() => {
-      WebSocketInstance.addCallbacks(
-        this.setMessages.bind(this),
-        this.addMessage.bind(this)
+      // WebSocketInstance.addCallbacks(
+      //   this.setMessages.bind(this),
+      //   this.addMessage.bind(this)
+      // );
+      WebSocketInstance.fetchMessages(
+        this.props.username,
+        this.props.match.params.chatID
       );
-      WebSocketInstance.fetchMessages(this.props.username, this.props.match.params.chatID);
     });
-    WebSocketInstance.connect(this.props.match.params.chatID)
+    WebSocketInstance.connect(this.props.match.params.chatID);
   }
   constructor(props) {
     super(props);
-    this.initialiseChat()
+    this.initialiseChat();
   }
   UNSAFE_componentWillReceiveProps(newProps) {
-    console.log(newProps);
-    this.initialiseChat()
-    
+    if (this.props.match.params.chatID !== newProps.match.params.chatID) {
+      WebSocketInstance.disconnect();
+      this.waitForSocketConnection(() => {
+        WebSocketInstance.fetchMessages(
+          this.props.username,
+          newProps.match.params.chatID
+        );
+      });
+      WebSocketInstance.connect(newProps.match.params.chatID);
+    }
   }
   waitForSocketConnection(callback) {
     const component = this;
@@ -39,13 +48,13 @@ class Chat extends React.Component {
     }, 100);
   }
 
-  addMessage(message) {
-    this.setState({ messages: [...this.state.messages, message] });
-  }
+  // addMessage(message) {
+  //   this.setState({ messages: [...this.state.messages, message] });
+  // }
 
-  setMessages(messages) {    
-    this.setState({ messages: messages.reverse() });
-  }
+  // setMessages(messages) {
+  //   this.setState({ messages: messages.reverse() });
+  // }
 
   messageChangeHandler = (event) => {
     this.setState({
@@ -58,6 +67,7 @@ class Chat extends React.Component {
     const messageObject = {
       from: this.props.username,
       content: this.state.message,
+      chatId: this.props.match.params.chatID,
     };
     WebSocketInstance.newChatMessage(messageObject);
     this.setState({
@@ -124,7 +134,7 @@ class Chat extends React.Component {
       <Hoc>
         <div className="messages">
           <ul id="chat-log">
-            {messages && this.renderMessages(messages)}
+            {this.props.messages && this.renderMessages(this.props.messages)}
             <div
               style={{ float: "left", clear: "both" }}
               ref={(el) => {
@@ -158,7 +168,8 @@ class Chat extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    username: state.username,
+    username: state.auth.username,
+    messages: state.message.messages,
   };
 };
 

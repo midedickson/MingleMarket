@@ -29,7 +29,12 @@ class WebSocketService {
       this.connect();
     };
   }
-
+  disconnect() {
+    this.socketRef.close()
+    this.socketRef.onclose = () => {
+      console.log("socket is closed");
+    };   
+  }
   socketNewMessage(data) {
     const parsedData = JSON.parse(data);
     const command = parsedData.command;
@@ -53,6 +58,7 @@ class WebSocketService {
       command: "new_message",
       from: message.from,
       message: message.content,
+      chatId: message.chatId
     });
   }
 
