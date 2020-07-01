@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 from rest_framework.generics import (
@@ -8,8 +9,9 @@ from rest_framework.generics import (
     DestroyAPIView,
     UpdateAPIView
 )
+from rest_framework import viewsets
 from chat.models import Chat, Contact
-from .serializers import ChatSerializer
+from .serializers import *
 
 
 def get_user_contact(username):
@@ -53,3 +55,22 @@ class ChatDeleteView(DestroyAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
     permission_classes = (permissions.IsAuthenticated, )
+
+
+class ContactViewset(viewsets.ModelViewSet):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+    def post(self, request, *args, **kwargs):
+        user = request.data['user']
+        photo = request.data['photo']
+        first_name = request.data['first_name']
+        last_name = request.data['last_name']
+        phone_number = request.data['phone_number']
+        bio = request.data['bio']
+
+        Book.objects.create(user=user, photo=photo, first_name=first_name,
+                            last_name=last_name, phone_number=phone_number, bio=bio)
+
+        return HttpResponse({'message': 'Book Created Successfully'}, status=200)

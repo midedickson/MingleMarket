@@ -7,20 +7,45 @@ class Profile extends React.Component {
   render() {
     if (this.props.token === null) {
       return <Redirect to="/" />;
+      console.log("null token");
     }
     return (
-      <div className="contact-profile">
-        {this.props.username !== null ? (
-          <Hoc>
-            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-            <p>{this.props.username}</p>
-            <div className="social-media">
-              <i className="fa fa-facebook" aria-hidden="true"></i>
-              <i className="fa fa-twitter" aria-hidden="true"></i>
-              <i className="fa fa-instagram" aria-hidden="true"></i>
-            </div>
-          </Hoc>
-        ) : null}
+      <div className="card-header msg_head">
+        <div className="d-flex bd-highlight">
+          <div className="img_cont">
+            <img
+              src="http://emilcarlsson.se/assets/harveyspecter.png"
+              alt=""
+              className="rounded-circle user_img"
+            />
+            <span className="online_icon"></span>
+          </div>
+          <div className="user_info">
+            <span>{this.props.username}</span>
+            <p>1767 Messages</p>
+          </div>
+          <div className="video_cam">
+            <span>
+              <i className="fas fa-video"></i>
+            </span>
+            <span>
+              <i className="fas fa-phone"></i>
+            </span>
+          </div>
+        </div>
+        <span id="action_menu_btn">
+          <i className="fas fa-ellipsis-v"></i>
+        </span>
+        <div className="action_menu">
+          <ul>
+            <li>
+              <i className="fas fa-user-circle"></i> View profile
+            </li>
+            <li>
+              <i className="fas fa-plus"></i> Add to group
+            </li>
+          </ul>
+        </div>
       </div>
     );
   }

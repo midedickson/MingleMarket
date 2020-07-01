@@ -101,21 +101,30 @@ class Chat extends React.Component {
   renderMessages = (messages) => {
     const currentUser = this.props.username;
     return messages.map((message, i, arr) => (
-      <li
+      <div
         key={message.id}
-        style={{ marginBottom: arr.length - 1 === i ? "300px" : "15px" }}
-        className={message.author === currentUser ? "sent" : "replies"}
+        className={
+          message.author === currentUser
+            ? "d-flex justify-content-end mb-4"
+            : "d-flex justify-content-start mb-4"
+        }
       >
-        <img src="http://emilcarlsson.se/assets/mikeross.png" />
-        <p>
+        <div className="img_cont_msg">
+          <img
+            src="http://emilcarlsson.se/assets/mikeross.png"
+            className="rounded-circle user_img_msg"
+          />
+        </div>
+        <div className="msg_cotainer">
           {message.content}
-          <br />
-          <small>{this.renderTimestamp(message.timestamp)}</small>
-        </p>
-      </li>
+          <span className="msg_time">
+            {this.renderTimestamp(message.timestamp)}
+          </span>
+        </div>
+      </div>
     ));
   };
-
+  /*
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   };
@@ -127,37 +136,36 @@ class Chat extends React.Component {
   componentDidUpdate() {
     this.scrollToBottom();
   }
-
+*/
   render() {
     const messages = this.state.messages;
     return (
       <Hoc>
-        <div className="messages">
-          <ul id="chat-log">
-            {this.props.messages && this.renderMessages(this.props.messages)}
-            <div
-              style={{ float: "left", clear: "both" }}
-              ref={(el) => {
-                this.messagesEnd = el;
-              }}
-            ></div>
-          </ul>
+        <div className="card-body msg_card_body">
+          {this.props.messages && this.renderMessages(this.props.messages)}
         </div>
-        <div className="message-input">
+        <div className="card-footer">
           <form onSubmit={this.sendMessageHandler}>
-            <div className="wrap">
+            <div className="input-group">
+              <div className="input-group-append">
+                <span className="input-group-text attach_btn">
+                  <i className="fas fa-paperclip"></i>
+                </span>
+              </div>
               <input
                 onChange={this.messageChangeHandler}
                 value={this.state.message}
                 required
+                className="form-control type_msg"
                 id="chat-message-input"
                 type="text"
-                placeholder="Write your message..."
+                placeholder="Type your message..."
               />
-              <i className="fa fa-paperclip attachment" aria-hidden="true"></i>
-              <button id="chat-message-submit" className="submit">
-                <i className="fa fa-paper-plane" aria-hidden="true"></i>
-              </button>
+              <div id="chat-message-submit" className="input-group-append">
+                <span className="input-group-text send_btn">
+                  <i className="fa fa-paper-plane" aria-hidden="true"></i>
+                </span>
+              </div>
             </div>
           </form>
         </div>

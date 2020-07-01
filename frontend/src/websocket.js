@@ -11,8 +11,11 @@ class WebSocketService {
     this.socketRef = null;
   }
   connect(chatURL) {
+    // var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    // const path =
+    //   ws_scheme + "://" + window.location.host + "/ws/chat" + `/${chatURL}`;
     const path = `ws://localhost:8000/ws/chat/${chatURL}/`;
-    console.log(path)
+    console.log(path);
     this.socketRef = new WebSocket(path);
     this.socketRef.onopen = () => {
       console.log("websocket is open");
@@ -30,10 +33,10 @@ class WebSocketService {
     };
   }
   disconnect() {
-    this.socketRef.close()
+    this.socketRef.close();
     this.socketRef.onclose = () => {
       console.log("socket is closed");
-    };   
+    };
   }
   socketNewMessage(data) {
     const parsedData = JSON.parse(data);
@@ -50,7 +53,11 @@ class WebSocketService {
   }
 
   fetchMessages(username, chatId) {
-    this.sendMessage({ command: "fetch_messages", username: username, chatId: chatId });
+    this.sendMessage({
+      command: "fetch_messages",
+      username: username,
+      chatId: chatId,
+    });
   }
 
   newChatMessage(message) {
@@ -58,7 +65,7 @@ class WebSocketService {
       command: "new_message",
       from: message.from,
       message: message.content,
-      chatId: message.chatId
+      chatId: message.chatId,
     });
   }
 

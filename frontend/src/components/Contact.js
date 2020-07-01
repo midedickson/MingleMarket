@@ -1,18 +1,29 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-const Contact = (props) => (
-  <NavLink to={`${props.chatURL}`} style={{ color: "#fff" }}>
-    <li className="contact">
-      <div className="wrap">
-        <span className={`contact-status ${props.status}`}></span>
-        <img src={props.picURL} alt={props.name} />
-        <div className="meta">
-          <p className="name">{props.name}</p>
-          {/* <p className="preview">You just got LITT up, Mike.</p> */}
+import { NavLink, useRouteMatch } from "react-router-dom";
+
+function Contact(props) {
+  let { url } = useRouteMatch();
+
+  return (
+    <NavLink to={`${url}${props.chatURL}`} style={{ color: "#fff" }}>
+      <li className="active">
+        <div className="d-flex bd-highlight">
+          <div className="img_cont">
+            <img
+              src={props.picURL}
+              alt={props.name}
+              className="rounded-circle user_img"
+            />
+            <span className={`${props.status}_icon`}></span>
+          </div>
+          <div className="user_info">
+            <span>{props.name}</span>
+            {/* <p>Kalid is online</p> */}
+          </div>
         </div>
-      </div>
-    </li>
-  </NavLink>
-);
+      </li>
+    </NavLink>
+  );
+}
 
 export default Contact;
