@@ -1,8 +1,7 @@
-env/
-**/*.pyc
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-node_modules
+/node_modules
 /.pnp
 .pnp.js
 
@@ -18,8 +17,7 @@ node_modules
 .env.development.local
 .env.test.local
 .env.production.local
-.cache
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/mingle
