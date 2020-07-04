@@ -1,7 +1,7 @@
 body {
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: "proxima-nova", "Source Sans Pro", sans-serif;
   font-size: 1em;
   letter-spacing: 0.1px;
@@ -11,7 +11,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 #app {
-  margin-top: 40px;
+  /* margin-top: 40px; */
 }
 #app::before {
   content: "";
