@@ -6,6 +6,7 @@ const initialState = {
   username: null,
   error: null,
   loading: false,
+  profile: null,
 };
 
 const authStart = (state, action) => {
@@ -38,6 +39,12 @@ const authLogout = (state, action) => {
   });
 };
 
+const userProfile = (state, action) => {
+  return updateObject(state, {
+    profile: action.profile,
+  });
+};
+
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
@@ -48,6 +55,8 @@ const authReducer = (state = initialState, action) => {
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:
       return authLogout(state, action);
+    case actionTypes.GET_PROFILE_SUCCESS:
+      return userProfile(state, action);
     default:
       return state;
   }

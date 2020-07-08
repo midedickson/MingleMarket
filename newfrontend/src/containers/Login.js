@@ -17,7 +17,6 @@ class Login extends React.Component {
       <div id="profile">
         <div className="wrap">
           {/*  */}
-          {this.props.username !== null ? <p>{this.props.username}</p> : null}
 
           <div id="login">
             <div className="container-fluid">

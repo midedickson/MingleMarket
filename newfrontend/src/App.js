@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import * as authActions from "./store/actions/auth";
@@ -13,6 +13,8 @@ import Homepage from "./containers/Homepage";
 import Register from "./containers/Register";
 import Navbar from "./containers/Navbar";
 import UserProfile from "./containers/UserProfile";
+import logo from "./assets/hey_mingle.png";
+
 import "./App.css";
 class App extends React.Component {
   componentDidMount() {
@@ -28,15 +30,25 @@ class App extends React.Component {
   }
 
   render() {
+    this.props.getProfile(this.props.token);
     return (
       <Router>
         <Navbar />
-        <div className="container-fluid h-100">
+
+        <div
+          className="container-fluid h-100 app"
+          // style={{
+          //   backgroundImage: `url(${bgimg})`,
+          //   backgroundRepeat: "no-repeat",
+          //   backgroundSize: "cover",
+          // }}
+        >
           <Switch>
             <Route path="/register">
               <Register />
             </Route>
             <Route path="/chat">
+              <img src={logo} width="100%" height="500" />
               <div className="container-fluid row justify-content-center">
                 <Sidepanel />
                 <div className="col-md-8 col-xl-6 chat">
@@ -68,11 +80,14 @@ const mapStateToProps = (state) => {
   return {
     showAddChatPopup: state.nav.showAddChatPopup,
     authenticated: state.auth.token,
+    token: state.auth.token,
   };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onTryAutoSignup: () => dispatch(authActions.authCheckState()),
+    getProfile: (token) => dispatch(authActions.getUserProfile(token)),
     closeAddChatPopup: () => dispatch(navActions.closeAddChatPopup()),
     addMessage: (message) => dispatch(msgActions.addMessage(message)),
     setMessages: (messages) => dispatch(msgActions.setMessages(messages)),

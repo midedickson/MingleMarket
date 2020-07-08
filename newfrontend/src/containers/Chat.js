@@ -7,10 +7,6 @@ class Chat extends React.Component {
   state = { message: "" };
   initialiseChat() {
     this.waitForSocketConnection(() => {
-      // WebSocketInstance.addCallbacks(
-      //   this.setMessages.bind(this),
-      //   this.addMessage.bind(this)
-      // );
       WebSocketInstance.fetchMessages(
         this.props.username,
         this.props.match.params.chatID
@@ -22,7 +18,9 @@ class Chat extends React.Component {
     super(props);
     this.initialiseChat();
   }
+
   UNSAFE_componentWillReceiveProps(newProps) {
+    console.log(newProps);
     if (this.props.match.params.chatID !== newProps.match.params.chatID) {
       WebSocketInstance.disconnect();
       this.waitForSocketConnection(() => {
@@ -47,14 +45,6 @@ class Chat extends React.Component {
       }
     }, 100);
   }
-
-  // addMessage(message) {
-  //   this.setState({ messages: [...this.state.messages, message] });
-  // }
-
-  // setMessages(messages) {
-  //   this.setState({ messages: messages.reverse() });
-  // }
 
   messageChangeHandler = (event) => {
     this.setState({
@@ -132,12 +122,22 @@ class Chat extends React.Component {
 
   componentDidMount() {
     this.scrollToBottom();
-  }
+  }*/
 
-  componentDidUpdate() {
-    this.scrollToBottom();
-  }
-*/
+  // componentDidUpdate(newProps) {
+  //   console.log(newProps);
+  //   if (this.props.match.params.chatID !== newProps.match.params.chatID) {
+  //     WebSocketInstance.disconnect();
+  //     this.waitForSocketConnection(() => {
+  //       WebSocketInstance.fetchMessages(
+  //         this.props.username,
+  //         newProps.match.params.chatID
+  //       );
+  //     });
+  //     WebSocketInstance.connect(newProps.match.params.chatID);
+  //   }
+  // }
+
   render() {
     return (
       <Hoc>

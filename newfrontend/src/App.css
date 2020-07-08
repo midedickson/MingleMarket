@@ -1,7 +1,4 @@
 body {
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
   font-family: "proxima-nova", "Source Sans Pro", sans-serif;
   font-size: 1em;
   letter-spacing: 0.1px;
@@ -10,24 +7,29 @@ body {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
   -webkit-font-smoothing: antialiased;
 }
-#app {
-  margin-top: 40px;
+.app {
+  background-image: url("/assets/71AEPEq-mSL._AC_SL1300_.jpg");
 }
-#app::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  z-index: -1;
-  opacity: 1;
-  background-image: url("/src/assets/71AEPEq-mSL._AC_SL1300_.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
+/* .app::before {
+  opacity: 0.8;
+} */
+.navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
 }
 
-/*New Styles*/
+.dropdown-toggle::after {
+  transition: transform 0.15s linear;
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+
+/*CHAT STYLES*/
 
 .main-chat {
   height: 100%;
@@ -362,4 +364,42 @@ body {
   .form-label-group input:-ms-input-placeholder {
     color: #777;
   }
+}
+
+/* PROFILE PAGE */
+
+.portfolio {
+  padding: 6%;
+  text-align: center;
+}
+.heading {
+  background: #fff;
+  padding: 1%;
+  text-align: left;
+  box-shadow: 0px 0px 4px 0px #545b62;
+}
+.heading img {
+  width: 10%;
+}
+.bio-info {
+  padding: 5%;
+  background: #fff;
+  box-shadow: 0px 0px 4px 0px #b0b3b7;
+}
+.name {
+  font-family: "Charmonman", cursive;
+  font-weight: 600;
+}
+.bio-image {
+  text-align: center;
+}
+.bio-image img {
+  border-radius: 50%;
+}
+.bio-content {
+  text-align: left;
+}
+.bio-content p {
+  font-weight: 600;
+  font-size: 30px;
 }

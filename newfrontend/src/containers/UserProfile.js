@@ -1,86 +1,70 @@
 import React from "react";
-import { Form, Input, InputNumber, Button } from "antd";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import * as authActions from "../store/actions/auth";
 
 class UserProfile extends React.Component {
   render() {
-    return <Demo />;
+    if (this.props.token === null) {
+      return <Redirect to="/" />;
+    } else {
+      return (
+        <div className="container portfolio">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="heading">
+                <img src="https://image.ibb.co/cbCMvA/logo.png" />
+              </div>
+            </div>
+          </div>
+          <div className="bio-info">
+            <div className="row">
+              <div className="col-md-6">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="bio-image">
+                      <img
+                        src={this.props.profile.photo}
+                        alt="user_profile_image"
+                        width="500"
+                        height="500"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="bio-content">
+                  <h1>
+                    Hi there, I'm{" "}
+                    {this.props.username[0].toUpperCase() +
+                      this.props.username.slice(1)}
+                  </h1>
+                  <h6>{this.props.profile.bio}</h6>
+                  <hr />
+                  <span>{this.props.profile.phone_number}</span>
+                  <p>{this.props.profile.catch_phrase}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
-const validateMessages = {
-  required: "${label} is required!",
-  types: {
-    email: "${label} is not validate email!",
-    number: "${label} is not a validate number!",
-  },
-};
-
-const Demo = () => {
-  const onFinish = (values) => {
-    console.log(values);
+const mapStateToProps = (state) => {
+  return {
+    username: state.auth.username,
+    token: state.auth.token,
+    profile: state.auth.profile,
   };
-
-  return (
-    <Form
-      {...layout}
-      name="nest-messages"
-      onFinish={onFinish}
-      validateMessages={validateMessages}
-    >
-      <Form.Item
-        name={["user", "name"]}
-        label="Name"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name={["user", "email"]}
-        label="Email"
-        rules={[
-          {
-            type: "email",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name={["user", "phone_number"]}
-        label="phone_number"
-        rules={[
-          {
-            type: "number",
-          },
-        ]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item name={["user", "website"]} label="Website">
-        <Input />
-      </Form.Item>
-      <Form.Item name={["user", "introduction"]} label="Introduction">
-        <Input.TextArea />
-      </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
-  );
 };
 
-export default UserProfile;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getProfile: (token) => dispatch(authActions.getUserProfile(token)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

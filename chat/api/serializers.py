@@ -11,8 +11,7 @@ class StringSerializer(serializers.StringRelatedField):
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = ('user', 'photo', 'first_name',
-                  'last-name', 'phone_number', 'bio')
+        fields = '__all__'
 
 
 class ChatSerializer(serializers.ModelSerializer):
@@ -27,8 +26,11 @@ class ChatSerializer(serializers.ModelSerializer):
         participants = validated_data.pop('participants')
         chat = Chat()
         chat.save()
+        username_list = []
         for username in participants:
             contact = get_user_contact(username)
             chat.participants.add(contact)
+            username_list.append(username)
+        chat.name = "Chats with {}".format(username_list)
         chat.save()
         return chat

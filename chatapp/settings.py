@@ -13,7 +13,7 @@ SECRET_KEY = '89h5(-uu(zequ57@4g(zzx3cm*a=$*^s8p(hmliz=aep82z4_u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['minglemarket2.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['minglemarket2.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -28,25 +28,24 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
 
+    'accounts',
     'chat',
 
     'allauth',
     'allauth.account',
     'allauth.socialaccount.providers.facebook',
     'channels',
-    'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken',
-    'rest_auth',
-    'rest_auth.registration',
+    'corsheaders',
+    'knox'
 ]
 
 SITE_ID = 1
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -116,6 +115,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
+}
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'accounts.authentication.MyBackend',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -144,8 +151,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_REQUIRED = False
+
 CORS_ORIGIN_ALLOW_ALL = True
 CSRF_COOKIE_NAME = "csrftoken"

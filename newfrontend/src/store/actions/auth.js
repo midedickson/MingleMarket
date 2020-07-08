@@ -22,20 +22,22 @@ export const authFail = (error) => {
   };
 };
 
-export const logout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("username");
-  localStorage.removeItem("expirationDate");
+export const logout = (token) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Token ${token}`,
+  };
+  axios
+    .post("http://127.0.0.1:8000/accounts/api/auth/logout/", null, {
+      headers: headers,
+    })
+    .then((res) => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+    });
+
   return {
     type: actionTypes.AUTH_LOGOUT,
-  };
-};
-
-export const checkAuthTimeout = (expirationTime) => {
-  return (dispatch) => {
-    setTimeout(() => {
-      dispatch(logout());
-    }, expirationTime * 10000);
   };
 };
 
@@ -43,18 +45,15 @@ export const authLogin = (username, password) => {
   return (dispatch) => {
     dispatch(authStart());
     axios
-      .post("http://127.0.0.1:8000/rest-auth/login/", {
+      .post("http://127.0.0.1:8000/accounts/api/auth/login", {
         username: username,
         password: password,
       })
       .then((res) => {
-        const token = res.data.key;
-        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+        const token = res.data.token;
         localStorage.setItem("token", token);
         localStorage.setItem("username", username);
-        localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(username, token));
-        dispatch(checkAuthTimeout(3600));
       })
       .catch((err) => {
         dispatch(authFail(err));
@@ -66,20 +65,17 @@ export const authSignup = (username, email, password1, password2) => {
   return (dispatch) => {
     dispatch(authStart());
     axios
-      .post("http://127.0.0.1:8000/rest-auth/registration/", {
+      .post("http://127.0.0.1:8000/accounts/api/auth/register", {
         username: username,
         email: email,
         password1: password1,
         password2: password2,
       })
       .then((res) => {
-        const token = res.data.key;
-        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+        const token = res.data.token;
         localStorage.setItem("token", token);
         localStorage.setItem("username", username);
-        localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(username, token));
-        dispatch(checkAuthTimeout(3600));
       })
       .catch((err) => {
         dispatch(authFail(err));
@@ -94,17 +90,31 @@ export const authCheckState = () => {
     if (token === undefined) {
       dispatch(logout());
     } else {
-      const expirationDate = new Date(localStorage.getItem("expirationDate"));
-      if (expirationDate <= new Date()) {
-        dispatch(logout());
-      } else {
-        dispatch(authSuccess(username, token));
-        dispatch(
-          checkAuthTimeout(
-            (expirationDate.getTime() - new Date().getTime()) / 1000
-          )
-        );
-      }
+      dispatch(authSuccess(username, token));
     }
+  };
+};
+
+const getUserProfileSuccess = (profile) => {
+  return {
+    type: actionTypes.GET_PROFILE_SUCCESS,
+    profile: profile,
+  };
+};
+
+export const getUserProfile = (token) => {
+  return (dispatch) => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    };
+    axios
+      .get("http://127.0.0.1:8000/chat/contact_detail/", { headers: headers })
+      .then((res) => {
+        dispatch(getUserProfileSuccess(res.data));
+      })
+      .catch((err) => {
+        dispatch(authFail(err));
+      });
   };
 };

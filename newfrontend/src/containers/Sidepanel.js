@@ -39,7 +39,7 @@ class Sidepanel extends React.Component {
           key={c.id}
           name={`${c.name}`}
           status="online"
-          picURL="http://emilcarlsson.se/assets/louislitt.png"
+          // picURL="http://emilcarlsson.se/assets/louislitt.png"
           chatURL={`/${c.id}`}
         />
       );

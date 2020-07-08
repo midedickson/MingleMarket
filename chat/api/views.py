@@ -7,7 +7,7 @@ from rest_framework.generics import (
     RetrieveAPIView,
     CreateAPIView,
     DestroyAPIView,
-    UpdateAPIView
+    UpdateAPIView,
 )
 from rest_framework import viewsets
 from chat.models import Chat, Contact
@@ -20,9 +20,15 @@ def get_user_contact(username):
     return contact
 
 
+def get_user_contact_id(username):
+    user = get_object_or_404(User, username=username)
+    contact = get_object_or_404(Contact, user=user)
+    return contact.id
+
+
 class ChatListView(ListAPIView):
     serializer_class = ChatSerializer
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.IsAuthenticated, )
 
     def get_queryset(self):
         queryset = Chat.objects.all()
@@ -36,13 +42,13 @@ class ChatListView(ListAPIView):
 class ChatDetailView(RetrieveAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.IsAuthenticated, )
 
 
 class ChatCreateView(CreateAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.IsAuthenticated, )
 
 
 class ChatUpdateView(UpdateAPIView):
@@ -57,20 +63,36 @@ class ChatDeleteView(DestroyAPIView):
     permission_classes = (permissions.IsAuthenticated, )
 
 
-class ContactViewset(viewsets.ModelViewSet):
+class ContactListView(ListAPIView):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
     permission_classes = (permissions.IsAuthenticated, )
 
-    def post(self, request, *args, **kwargs):
-        user = request.data['user']
-        photo = request.data['photo']
-        first_name = request.data['first_name']
-        last_name = request.data['last_name']
-        phone_number = request.data['phone_number']
-        bio = request.data['bio']
 
-        Book.objects.create(user=user, photo=photo, first_name=first_name,
-                            last_name=last_name, phone_number=phone_number, bio=bio)
+class ContactCreateView(CreateAPIView):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    permission_classes = (permissions.IsAuthenticated, )
 
-        return HttpResponse({'message': 'Book Created Successfully'}, status=200)
+
+class ContactDetailView(RetrieveAPIView):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    permission_classes = (permissions.AllowAny, )
+
+    def get_object(self):
+        user = self.request.user
+        contact = get_object_or_404(Contact, user=user)
+        return contact
+
+
+class ContactUpdateView(UpdateAPIView):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+
+class ContactDeleteView(DestroyAPIView):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    permission_classes = (permissions.IsAuthenticated, )

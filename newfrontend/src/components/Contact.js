@@ -8,14 +8,14 @@ function Contact(props) {
     <NavLink to={`${url}${props.chatURL}`} style={{ color: "#fff" }}>
       <li className="active">
         <div className="d-flex bd-highlight">
-          <div className="img_cont">
+          {/* <div className="img_cont">
             <img
               src={props.picURL}
               alt={props.name}
               className="rounded-circle user_img"
             />
             <span className={`${props.status}_icon`}></span>
-          </div>
+          </div> */}
           <div className="user_info">
             <span>{props.name}</span>
             {/* <p>Kalid is online</p> */}

@@ -1,24 +1,18 @@
 from django.urls import path, re_path, include
-from rest_framework import routers
-from .views import (
-    ChatListView,
-    ChatDetailView,
-    ChatCreateView,
-    ChatUpdateView,
-    ChatDeleteView,
-    ContactViewset
-)
+from .views import *
 
 app_name = 'chat'
 
-router = routers.DefaultRouter()
-router.register('contact', ContactViewset)
+
 urlpatterns = [
     path('', ChatListView.as_view()),
     path('create/', ChatCreateView.as_view()),
     path('<pk>', ChatDetailView.as_view()),
     path('<pk>/update/', ChatUpdateView.as_view()),
     path('<pk>/delete/', ChatDeleteView.as_view()),
-    path('', include(router.urls))
-
+    path('contact/', ContactListView.as_view()),
+    path('contact_create/', ContactCreateView.as_view()),
+    path('contact_detail/', ContactDetailView.as_view()),
+    path('contact/<pk>/update/', ContactUpdateView.as_view()),
+    path('contact/<pk>/delete/', ContactDeleteView.as_view()),
 ]
