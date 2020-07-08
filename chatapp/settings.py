@@ -13,7 +13,7 @@ SECRET_KEY = '89h5(-uu(zequ57@4g(zzx3cm*a=$*^s8p(hmliz=aep82z4_u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['minglemarket2.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['mingle-market.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
