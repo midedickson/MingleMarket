@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as navActions from "../store/actions/nav";
 import * as messageActions from "../store/actions/message";
+import { baseUrl } from "../store/actions/auth";
 
 class AddChatForm extends React.Component {
   state = {
@@ -29,7 +30,7 @@ class AddChatForm extends React.Component {
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios
-      .post("http://127.0.0.1:8000/chat/create/", {
+      .post(baseUrl + "chat/create/", {
         messages: [],
         participants: combinedUsers,
       })

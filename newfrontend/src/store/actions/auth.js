@@ -6,6 +6,7 @@ export const authStart = () => {
     type: actionTypes.AUTH_START,
   };
 };
+export const baseUrl = "http://minglemarket2.herokuapp.com/";
 
 export const authSuccess = (username, token) => {
   return {
@@ -28,7 +29,7 @@ export const logout = (token) => {
     Authorization: `Token ${token}`,
   };
   axios
-    .post("http://127.0.0.1:8000/accounts/api/auth/logout/", null, {
+    .post(baseUrl + "accounts/api/auth/logout/", null, {
       headers: headers,
     })
     .then((res) => {
@@ -45,7 +46,7 @@ export const authLogin = (username, password) => {
   return (dispatch) => {
     dispatch(authStart());
     axios
-      .post("http://127.0.0.1:8000/accounts/api/auth/login", {
+      .post(baseUrl + "accounts/api/auth/login", {
         username: username,
         password: password,
       })
@@ -65,7 +66,7 @@ export const authSignup = (username, email, password1, password2) => {
   return (dispatch) => {
     dispatch(authStart());
     axios
-      .post("http://127.0.0.1:8000/accounts/api/auth/register", {
+      .post(baseUrl + "accounts/api/auth/register", {
         username: username,
         email: email,
         password1: password1,
@@ -109,7 +110,7 @@ export const getUserProfile = (token) => {
       Authorization: `Token ${token}`,
     };
     axios
-      .get("http://127.0.0.1:8000/chat/contact_detail/", { headers: headers })
+      .get(baseUrl + "chat/contact_detail/", { headers: headers })
       .then((res) => {
         dispatch(getUserProfileSuccess(res.data));
       })
