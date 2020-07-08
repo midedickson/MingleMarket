@@ -15,7 +15,7 @@ export class Header extends Component {
   }
 
   onChange = () => {
-    this.setState({ music: "off" });
+    this.setState({ music: !this.state.music });
   };
   render() {
     const guestLinks = (
@@ -29,13 +29,9 @@ export class Header extends Component {
         </li>
         <li className="nav-item">
           {this.state.music === "on" ? (
-            <embed
-              src={Music}
-              autostart="true"
-              loop={true}
-              width="0"
-              height="0"
-            ></embed>
+            <audio autoplay="autoplay" hidden="hidden">
+              <source src={Music} type="audio/mpeg" />
+            </audio>
           ) : (
             ""
           )}
