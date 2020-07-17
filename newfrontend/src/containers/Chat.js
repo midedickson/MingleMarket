@@ -107,6 +107,8 @@ class Chat extends React.Component {
           />
         </div>
         <div className="msg_cotainer">
+          {message.author}
+          <br />
           {message.content}
           <span className="msg_time">
             {this.renderTimestamp(message.timestamp)}

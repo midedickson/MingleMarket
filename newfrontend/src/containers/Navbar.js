@@ -10,7 +10,7 @@ export class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      music: "on",
+      music: true,
     };
   }
 
@@ -28,8 +28,8 @@ export class Header extends Component {
           </Link>
         </li>
         <li className="nav-item">
-          {this.state.music === "on" ? (
-            <audio autoplay="autoplay" hidden="hidden">
+          {this.state.music === true ? (
+            <audio autoPlay="autoplay" hidden="hidden">
               <source src={Music} type="audio/mpeg" />
             </audio>
           ) : (

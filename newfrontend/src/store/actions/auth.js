@@ -45,11 +45,18 @@ export const logout = (token) => {
 export const authLogin = (username, password) => {
   return (dispatch) => {
     dispatch(authStart());
+    const headers = {
+      "Content-Type": "application/json",
+    };
     axios
-      .post(baseUrl + "accounts/api/auth/login", {
-        username: username,
-        password: password,
-      })
+      .post(
+        baseUrl + "accounts/api/auth/login",
+        {
+          username: username,
+          password: password,
+        },
+        { headers: headers }
+      )
       .then((res) => {
         const token = res.data.token;
         localStorage.setItem("token", token);

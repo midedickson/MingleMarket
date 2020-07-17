@@ -39,7 +39,7 @@ class Login extends React.Component {
                                   // onClick={() => this.props.logout()}
                                   className="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2"
                                 >
-                                  <span>Mingle</span>
+                                  <span>Chat Room</span>
                                 </button>
                               </Link>
                               <Link to="/profile">

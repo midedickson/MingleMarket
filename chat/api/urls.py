@@ -12,7 +12,7 @@ urlpatterns = [
     path('<pk>/delete/', ChatDeleteView.as_view()),
     path('contact/', ContactListView.as_view()),
     path('contact_create/', ContactCreateView.as_view()),
-    path('contact_detail/', ContactDetailView.as_view()),
+    path('contact_detail/', UserContactDetailView.as_view()),
     path('contact/<pk>/update/', ContactUpdateView.as_view()),
     path('contact/<pk>/delete/', ContactDeleteView.as_view()),
 ]
