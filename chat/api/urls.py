@@ -15,4 +15,5 @@ urlpatterns = [
     path('contact_detail/', UserContactDetailView.as_view()),
     path('contact/<pk>/update/', ContactUpdateView.as_view()),
     path('contact/<pk>/delete/', ContactDeleteView.as_view()),
+    path('animation/', animation)
 ]

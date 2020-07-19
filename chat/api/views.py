@@ -12,6 +12,20 @@ from rest_framework.generics import (
 from rest_framework import viewsets
 from chat.models import Chat, Contact
 from .serializers import *
+from rest_framework.decorators import api_view
+
+
+@api_view(['GET', 'POST', 'PATCH'])
+def animation(request):
+    confetti_data = {
+        "startConfetti": false,
+        "confettiType": 1,
+        "bgColor": ""
+    }
+    if request.method == 'POST':
+        confetti_data = request.data
+        return Response({"message": "Animation!", "data": confetti_data})
+    return Response(confetti_data)
 
 
 def get_user_contact(username):
