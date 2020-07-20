@@ -15,7 +15,7 @@ import Register from "./containers/Register";
 import Navbar from "./containers/Navbar";
 import UserProfile from "./containers/UserProfile";
 import logo from "./assets/hey_mingle.png";
-import AnimateBg from './containers/AnimaBg'
+import BackgroundChanger from './containers/Background';
 
 import "./App.css";
 import ConfettiAni from "./containers/Confetti";
@@ -124,7 +124,7 @@ class App extends React.Component {
               <Register />
             </Route>
             <Route path="/chat">
-              <AnimateBg
+              <BackgroundChanger
                 color={this.state.bgColor}
               >
               <ConfettiAni
@@ -149,7 +149,7 @@ class App extends React.Component {
                   </div>
                 </div>
               </div>
-            </AnimateBg>
+            </BackgroundChanger>
             </Route>
             <Route path="/profile">
               <UserProfile />
