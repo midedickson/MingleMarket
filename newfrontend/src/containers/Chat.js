@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import WebSocketInstance from "../websocket";
 import Hoc from "../hoc/hoc";
+import AnimateBg from "./AnimaBg";
 
 class Chat extends React.Component {
   state = { message: "" };
@@ -143,6 +144,7 @@ class Chat extends React.Component {
   render() {
     return (
       <Hoc>
+        <AnimateBg>
         <div className="card-body msg_card_body">
           {this.props.messages && this.renderMessages(this.props.messages)}
         </div>
@@ -171,6 +173,7 @@ class Chat extends React.Component {
             </div>
           </form>
         </div>
+        </AnimateBg>
       </Hoc>
     );
   }

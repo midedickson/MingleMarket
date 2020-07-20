@@ -5,6 +5,8 @@ import { Switch } from "antd";
 import * as authActions from "../store/actions/auth";
 import logo from "../assets/hey_mingle.png";
 import Music from "../assets/Sunfire - Young Free And Single.mp3";
+import AnimationDropdown from "../components/AnimationDropdown";
+import BackgroundDropdown from "../components/BackgroundDropdown";
 
 export class Header extends Component {
   constructor(props) {
@@ -13,6 +15,7 @@ export class Header extends Component {
       music: true,
     };
   }
+
 
   onChange = () => {
     this.setState({ music: !this.state.music });
@@ -65,6 +68,44 @@ export class Header extends Component {
               Music{" "}
               <Switch size="small" defaultChecked onChange={this.onChange} />
             </div>
+          </div>
+        </li>
+        <li className="nav-item dropdown">
+          <div
+            className="nav-link dropdown-toggle text-dark"
+            id="navbarDropdown2"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+           Animations
+          </div>
+          <div className="dropdown-menu" aria-labelledby="navbarDropdown2">
+            <AnimationDropdown
+              toggleConfetti={this.props.toggleConfetti}
+              current={this.props.confettiType}
+              start={this.props.start}
+            />
+          </div>
+        </li>
+        <li className="nav-item dropdown">
+          <div
+            className="nav-link dropdown-toggle text-dark"
+            id="navbarDropdown2"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+           Backgrounds
+          </div>
+          <div className="dropdown-menu" aria-labelledby="navbarDropdown2">
+            <BackgroundDropdown
+              color={this.props.bgColor}
+              toggleBackground={this.props.toggleBackground}
+              currentBg={this.props.currentBg}
+            />
           </div>
         </li>
         <li className="nav-item">

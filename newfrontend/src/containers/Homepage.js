@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import Login from "./Login";
 import Playboy from "../assets/PLAYBOY - SHOWER TOGETHER - LUXURY.mp4";
+import ConfettiAni from "./Confetti";
 
 class Homepage extends React.Component {
   render() {
@@ -23,7 +24,8 @@ class Homepage extends React.Component {
         >
           <source src={Playboy} type="video/mp4" />
         </video>
-
+        
+        <ConfettiAni/>
         <Login />
       </Fragment>
     );
