@@ -40,7 +40,6 @@ class App extends React.Component {
   baseUrl = "https://mingle-market.herokuapp.com/chat/animation/";
   headers = {
     "Content-Type": "application/json",
-    Authorization: `Token ${localStorage.getItem("token")}`,
   };
 
   componentDidMount() {
@@ -150,6 +149,9 @@ class App extends React.Component {
             </Route>
             <Route path="/profile">
               <UserProfile />
+            </Route>
+            <Route path="/update-profile">
+              <UpdateProfile />
             </Route>
             <Route exact path="/">
               <Homepage />
