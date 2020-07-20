@@ -1,0 +1,110 @@
+import React from "react";
+
+class UpdateProfile extends React.Component {
+  render() {
+    return (
+      <div class="container bootstrap snippet">
+        <div class="row">
+          <div class="col-sm-10">
+            <h1>User name</h1>
+          </div>
+          <div class="col-sm-2">
+            {/* <a href="/users" class="pull-right">
+              <img
+                title="profile image"
+                class="img-circle img-responsive"
+                src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100"
+              />
+            </a> */}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="text-center">
+              <img
+                src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                class="avatar img-circle img-thumbnail"
+                alt="avatar"
+              />
+              <h6>Upload a different photo...</h6>
+              <input type="file" class="text-center center-block file-upload" />
+            </div>
+          </div>
+          <div class="col-sm-9">
+            <form class="form" method="post" id="registrationForm">
+              <div class="form-group">
+                <div class="col-xs-6">
+                  <label for="first_name">
+                    <h4>First name</h4>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="first_name"
+                    id="first_name"
+                    placeholder="first name"
+                    title="enter your first name if any."
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-6">
+                  <label for="last_name">
+                    <h4>Last name</h4>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="last_name"
+                    id="last_name"
+                    placeholder="last name"
+                    title="enter your last name if any."
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-6">
+                  <label for="phone">
+                    <h4>Phone</h4>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="phone"
+                    id="phone"
+                    placeholder="enter phone"
+                    title="enter your phone number if any."
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-6">
+                  <label for="mobile">
+                    <h4>Bio</h4>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="bio"
+                    id="bio"
+                    placeholder="Enter a short description of yourself"
+                    title="Enter a short description of yourself"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-12">
+                  <button class="btn btn-lg btn-success" type="submit">
+                    <i class="glyphicon glyphicon-ok-sign"></i> Save
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default UpdateProfile;

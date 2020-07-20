@@ -20,6 +20,7 @@ class Contact(models.Model):
     bio = models.TextField(max_length=1500, default='I am on Mingle Market!')
     catch_phrase = models.CharField(
         max_length=100, default='P.S I have no special talent, I\'m just passionately curious')
+    warning = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
@@ -52,6 +53,6 @@ class Chat(models.Model):
 
 @receiver(post_save, sender=Contact)
 def add_contact_to_chat(sender, instance, created, **kwargs):
-    general_group = Chat.objects.get(name='Mingle_Market')
+    general_group = Chat.objects.get(name='Public Chat Room')
     if created:
         general_group.participants.add(instance)

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Switch } from "antd";
 import * as authActions from "../store/actions/auth";
-import logo from "../assets/hey_mingle.png";
+import logo from "../assets/logo.png";
 import Music from "../assets/Sunfire - Young Free And Single.mp3";
 import AnimationDropdown from "../components/AnimationDropdown";
 import BackgroundDropdown from "../components/BackgroundDropdown";
@@ -149,7 +149,7 @@ export class Header extends Component {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <Link to="/" className="navbar-brand">
-              <img src={logo} width="70" height="30" alt="" />
+              <img src={logo} width="50" height="50" alt="" />
             </Link>
           </div>
           {this.props.isAuthenticated ? authLinks : guestLinks}
