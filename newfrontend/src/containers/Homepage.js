@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import Login from "./Login";
 import Playboy from "../assets/PLAYBOY - SHOWER TOGETHER - LUXURY.mp4";
 import ConfettiAni from "./Confetti";
+import Playboy from "../assets/background-video.mp4";
 
 class Homepage extends React.Component {
   render() {
@@ -10,7 +11,6 @@ class Homepage extends React.Component {
         <video
           autoPlay
           loop
-          muted
           style={{
             position: "absolute",
             width: "100%",
