@@ -16,11 +16,10 @@ import Navbar from "./containers/Navbar";
 import UserProfile from "./containers/UserProfile";
 import logo from "./assets/hey_mingle.png";
 import BackgroundChanger from './containers/Background';
-import UpdateProfile from "./containers/UpdateProfile";
+
 import "./App.css";
 import ConfettiAni from "./containers/Confetti";
 import SkyConfetti from "./containers/Sky";
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -120,16 +119,11 @@ class App extends React.Component {
           //   backgroundSize: "cover",
           // }}
         >
-        <Navbar />
-
-        <div className="container-fluid h-100 app">
-
           <Switch>
             <Route path="/register">
               <Register />
             </Route>
             <Route path="/chat">
-
               <BackgroundChanger
                 color={this.state.bgColor}
               >
@@ -159,9 +153,6 @@ class App extends React.Component {
             </Route>
             <Route path="/profile">
               <UserProfile />
-            </Route>
-            <Route path="/update-profile">
-              <UpdateProfile />
             </Route>
             <Route exact path="/">
               <Homepage />
