@@ -31,7 +31,7 @@ const  SkyConfetti = ({start, type}) => {
           images={{
             0: images[type],
           }}
-          how={300} /* Pass the number of images Sky will render chosing randomly */
+          how={100} /* Pass the number of images Sky will render chosing randomly */
           time={5} /* time of animation */
           size={'100px'} /* size of the rendered images */
           background={'palettedvioletred'} /* color of background */
