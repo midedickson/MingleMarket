@@ -49,7 +49,7 @@ class Login extends React.Component {
                           {this.props.loading ? (
                             <Spin indicator={antIcon} />
                           ) : this.props.isAuthenticated ? (
-                            <Link to="/profile">
+                            <Link to="/update-profile">
                               <button className="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2">
                                 <span>Set up Your Profile</span>
                               </button>

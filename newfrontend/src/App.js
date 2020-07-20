@@ -16,11 +16,8 @@ import UserProfile from "./containers/UserProfile";
 import logo from "./assets/hey_mingle.png";
 
 import "./App.css";
+import UpdateProfile from "./containers/UpdateProfile";
 class App extends React.Component {
-  componentDidMount() {
-    this.props.onTryAutoSignup();
-  }
-
   constructor(props) {
     super(props);
     WebSocketInstance.addCallbacks(
@@ -35,20 +32,12 @@ class App extends React.Component {
       <Router>
         <Navbar />
 
-        <div
-          className="container-fluid h-100 app"
-          // style={{
-          //   backgroundImage: `url(${bgimg})`,
-          //   backgroundRepeat: "no-repeat",
-          //   backgroundSize: "cover",
-          // }}
-        >
+        <div className="container-fluid h-100 app">
           <Switch>
             <Route path="/register">
               <Register />
             </Route>
             <Route path="/chat">
-              <img src={logo} width="100%" height="500" />
               <div className="container-fluid row justify-content-center">
                 <Sidepanel />
                 <div className="col-md-8 col-xl-6 chat">
@@ -65,6 +54,9 @@ class App extends React.Component {
             </Route>
             <Route path="/profile">
               <UserProfile />
+            </Route>
+            <Route path="/update-profile">
+              <UpdateProfile />
             </Route>
             <Route exact path="/">
               <Homepage />
