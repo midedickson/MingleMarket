@@ -133,29 +133,29 @@ class App extends React.Component {
               <BackgroundChanger
                 color={this.state.bgColor}
               >
-              <ConfettiAni
-                start={this.state.startConfetti}
-                type={this.state.confettiType}  
-              />
-              <SkyConfetti
-                start={this.state.startConfetti}
-                type={this.state.confettiType}
-              />
-              <img src={logo} width="100%" height="500" />
-              <div className="container-fluid row justify-content-center">
-                <Sidepanel />
-                <div className="col-md-8 col-xl-6 chat">
-                  <div className="card">
-                    <AddChatModal
-                      isVisible={this.props.showAddChatPopup}
-                      close={this.props.closeAddChatPopup}
-                    />
-                    <Profile />
-                    <BaseRouter />
+                <ConfettiAni
+                  start={this.state.startConfetti}
+                  type={this.state.confettiType}  
+                />
+                <SkyConfetti
+                  start={this.state.startConfetti}
+                  type={this.state.confettiType}
+                />
+                <img src={logo} width="100%" height="500" />
+                <div className="container-fluid row justify-content-center">
+                  <Sidepanel />
+                  <div className="col-md-8 col-xl-6 chat">
+                    <div className="card">
+                      <AddChatModal
+                        isVisible={this.props.showAddChatPopup}
+                        close={this.props.closeAddChatPopup}
+                      />
+                      <Profile />
+                      <BaseRouter />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </BackgroundChanger>
+              </BackgroundChanger>
             </Route>
             <Route path="/profile">
               <UserProfile />
@@ -168,7 +168,7 @@ class App extends React.Component {
             </Route>
           </Switch>
         </div>
-         </Router>
+      </Router>
     );
   }
 }
