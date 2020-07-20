@@ -26,7 +26,7 @@ class App extends React.Component {
     this.state = {
       startConfetti: false,
       confettiType: null,
-      bgColor: 'white'
+      bgColor: 'transparent'
     }
     WebSocketInstance.addCallbacks(
       this.props.setMessages.bind(this),
