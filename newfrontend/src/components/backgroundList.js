@@ -17,7 +17,7 @@ const backgroundList = [
     },
     {
         color: 'default',
-        value: 'white'
+        value: 'transparent'
     },
     
 ]
