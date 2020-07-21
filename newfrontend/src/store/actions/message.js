@@ -25,12 +25,12 @@ const getUserChatsSuccess = (chats) => {
 
 export const getUserChats = (username, token) => {
   return (dispatch) => {
-    axios.defaults.headers = {
+    const headers = {
       "Content-Type": "application/json",
       Authorization: `Token ${token}`,
     };
     axios
-      .get(baseUrl + `chat/?username=${username}`)
+      .get(baseUrl + `chat/?username=${username}`, { headers: headers })
       .then((res) => dispatch(getUserChatsSuccess(res.data)));
   };
 };
