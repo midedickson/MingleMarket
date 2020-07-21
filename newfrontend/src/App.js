@@ -27,7 +27,7 @@ class App extends React.Component {
     this.state = {
       startConfetti: false,
       confettiType: null,
-      bgColor: "white",
+      bgColor: "transparent",
     };
     WebSocketInstance.addCallbacks(
       this.props.setMessages.bind(this),
@@ -44,7 +44,6 @@ class App extends React.Component {
 
   componentDidMount() {
     this.inter = setInterval(() => {
-      console.log("starting");
       axios
         .get(this.baseUrl, {
           headers: this.headers,
@@ -52,11 +51,13 @@ class App extends React.Component {
         .then((res) => {
           this.setState({
             startConfetti: res.data.startConfetti === "on",
-            ...res.data,
+            confettiType: res.data.confettiType,
+            bgColor: res.data.bgColor
           });
         })
         .catch((err) => console.log(err));
     }, 5000);
+    this.props.onTryAutoSignup()
   }
 
   componentWillUnmount() {
@@ -65,16 +66,15 @@ class App extends React.Component {
 
   toggleConfetti(confettiType, checked) {
     axios
-      .post(
+      .put(
         this.baseUrl,
         {
           startConfetti: checked ? "on" : "off",
           confettiType,
-          ...this.state,
         },
         { headers: this.headers }
       )
-      .then(() => {
+      .then((res) => {
         this.setState((oldState) => ({
           startConfetti: checked,
           confettiType,
@@ -90,15 +90,16 @@ class App extends React.Component {
 
   toggleBackground(color) {
     axios
-      .post(
+      .put(
         this.baseUrl,
         {
-          ...this.state,
+          startConfetti: this.state.startConfetti ? "on" : "off",
+          confettiType: this.state.confettiType,
           bgColor: color,
         },
         { headers: this.headers }
       )
-      .then(() => {
+      .then(res => {
         this.setState({
           bgColor: color,
         });

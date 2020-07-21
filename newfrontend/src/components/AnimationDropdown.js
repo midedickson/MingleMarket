@@ -6,7 +6,7 @@ const AnimationDropdown = ({toggleConfetti,current,start}) => (
     animations.map((val,index) => {
         return (
             <>
-            <div className="dropdown-item">
+            <div className="dropdown-item" key={index}>
                 {val.name}{" "}
             <Switch size="small" onChange={(checked) => toggleConfetti(index, checked)} checked={current === index && start}/>
             </div>

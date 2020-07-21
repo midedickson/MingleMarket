@@ -6,7 +6,7 @@ const BackgroundDropdown = ({toggleBackground,currentBg}) => (
     backgroundList.map((val,index) => {
         return (
             <>
-            <div className="dropdown-item">
+            <div className="dropdown-item" key={index}>
                 {val.color}{" "}
             <Switch size="small" onChange={() => toggleBackground(val.value)} checked={currentBg === val.value}/>
             </div>
