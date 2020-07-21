@@ -9,24 +9,12 @@ from rest_framework.generics import (
     CreateAPIView,
     DestroyAPIView,
     UpdateAPIView,
+    RetrieveUpdateAPIView
 )
 from rest_framework import viewsets
 from chat.models import Chat, Contact
 from .serializers import *
 from rest_framework.decorators import api_view
-
-
-@api_view(['GET', 'POST', 'PATCH'])
-def animation(request):
-    confetti_data = {
-        "startConfetti": "on",
-        "confettiType": 1,
-        "bgColor": ""
-    }
-    if request.method == 'POST':
-        confetti_data = request.data
-        return Response({"message": "Animation!", "data": confetti_data})
-    return Response(confetti_data)
 
 
 def get_user_contact(username):
@@ -39,6 +27,16 @@ def get_user_contact_id(username):
     user = get_object_or_404(User, username=username)
     contact = get_object_or_404(Contact, user=user)
     return contact.id
+
+
+class AnimationView(RetrieveUpdateAPIView):
+    queryset = Animation.objects.all()
+    serializer_class = AnimationSerializer
+    permission_classes = (permissions.AllowAny, )
+
+    def get_object(self):
+        animation = Animation.objects.first()
+        return animation
 
 
 class ChatListView(ListAPIView):

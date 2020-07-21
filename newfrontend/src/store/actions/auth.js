@@ -64,7 +64,7 @@ export const authLogin = (username, password) => {
         dispatch(authSuccess(username, token));
       })
       .catch((err) => {
-        console.log(err.response)
+        console.log(err.response);
 
         dispatch(authFail(err));
       });
@@ -88,7 +88,7 @@ export const authSignup = (username, email, password1, password2) => {
         dispatch(authSuccess(username, token));
       })
       .catch((err) => {
-        console.log(err.response)
+        console.log(err.response);
         dispatch(authFail(err));
       });
   };
