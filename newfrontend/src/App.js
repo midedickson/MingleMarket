@@ -38,8 +38,7 @@ class App extends React.Component {
 
   baseUrl = 'https://mingle-market.herokuapp.com/chat/animation/'
   headers = {
-    "Content-Type": "application/json",
-    Authorization: `Token ${localStorage.getItem('token')}`,
+    "Content-Type": "application/json"
   };
 
   componentDidMount() {
