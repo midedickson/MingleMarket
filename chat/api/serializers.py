@@ -34,3 +34,9 @@ class ChatSerializer(serializers.ModelSerializer):
         chat.name = "Chats with {}".format(username_list)
         chat.save()
         return chat
+
+
+class AnimationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Animation
+        fields = '__all__'

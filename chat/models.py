@@ -56,3 +56,9 @@ def add_contact_to_chat(sender, instance, created, **kwargs):
     general_group = Chat.objects.get(name='Public Chat Room')
     if created:
         general_group.participants.add(instance)
+
+
+class Animation(models.Model):
+    startConfetti = models.CharField(max_length=3, null=True, blank=True)
+    confettiType = models.IntegerField()
+    bgColor = models.CharField(max_length=10, null=True, blank=True)
