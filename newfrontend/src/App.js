@@ -57,7 +57,6 @@ class App extends React.Component {
         })
         .catch((err) => console.log(err));
     }, 5000);
-    this.props.onTryAutoSignup();
   }
 
   componentWillUnmount() {

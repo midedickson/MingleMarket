@@ -23,17 +23,21 @@ class AddChatForm extends React.Component {
     const { usernames } = this.state;
     const combinedUsers = [...usernames, this.props.username];
 
-    axios.defaults.headers = {
+    const headers = {
       "Content-Type": "application/json",
       Authorization: `Token ${this.props.token}`,
     };
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios
-      .post(baseUrl + "chat/create/", {
-        messages: [],
-        participants: combinedUsers,
-      })
+      .post(
+        baseUrl + "chat/create/",
+        {
+          messages: [],
+          participants: combinedUsers,
+        },
+        { headers: headers }
+      )
       .then((res) => {
         this.props.history.push(`/${res.data.id}`);
         this.props.closeAddChatPopup();
