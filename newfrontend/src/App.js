@@ -14,7 +14,6 @@ import Homepage from "./containers/Homepage";
 import Register from "./containers/Register";
 import Navbar from "./containers/Navbar";
 import UserProfile from "./containers/UserProfile";
-import logo from "./assets/hey_mingle.png";
 import BackgroundChanger from "./containers/Background";
 import UpdateProfile from "./containers/UpdateProfile";
 
@@ -52,12 +51,12 @@ class App extends React.Component {
           this.setState({
             startConfetti: res.data.startConfetti === "on",
             confettiType: res.data.confettiType,
-            bgColor: res.data.bgColor
+            bgColor: res.data.bgColor,
           });
         })
         .catch((err) => console.log(err));
     }, 5000);
-    this.props.onTryAutoSignup()
+    this.props.onTryAutoSignup();
   }
 
   componentWillUnmount() {
@@ -99,7 +98,7 @@ class App extends React.Component {
         },
         { headers: this.headers }
       )
-      .then(res => {
+      .then((res) => {
         this.setState({
           bgColor: color,
         });
