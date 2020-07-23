@@ -20,6 +20,7 @@ import UpdateProfile from "./containers/UpdateProfile";
 import "./App.css";
 import ConfettiAni from "./containers/Confetti";
 import SkyConfetti from "./containers/Sky";
+import Footer from "./containers/OnlineVisitors";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -131,9 +132,9 @@ class App extends React.Component {
                   start={this.state.startConfetti}
                   type={this.state.confettiType}
                 />
-                <div className="container-fluid row justify-content-center">
+                <div className="container-fluid row">
                   <Sidepanel />
-                  <div className="col-md-8 col-xl-6 chat">
+                  <div className="col-md-8 col-xl-9">
                     <div className="card">
                       <AddChatModal
                         isVisible={this.props.showAddChatPopup}
@@ -143,6 +144,7 @@ class App extends React.Component {
                       <BaseRouter />
                     </div>
                   </div>
+                  <Footer />
                 </div>
               </BackgroundChanger>
             </Route>

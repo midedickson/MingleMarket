@@ -7,12 +7,7 @@ body {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
   -webkit-font-smoothing: antialiased;
 }
-.app {
-  background-image: url("/assets/71AEPEq-mSL._AC_SL1300_.jpg");
-}
-/* .app::before {
-  opacity: 0.8;
-} */
+
 .navbar .nav-item:not(:last-child) {
   margin-right: 35px;
 }
@@ -39,14 +34,10 @@ body {
   background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
 }
 
-.chat {
-  margin-top: auto;
-  margin-bottom: auto;
-}
 .card {
-  height: 500px;
+  height: 520px;
   border-radius: 15px !important;
-  background-color: rgba(0, 0, 0, 0.4) !important;
+  background-color: rgba(149, 121, 121, 0.4) !important;
 }
 .contacts_body {
   padding: 0.75rem 0 !important;
@@ -126,10 +117,20 @@ body {
   width: 70px;
   border: 1.5px solid #f5f6fa;
 }
+.active_user_img {
+  height: 40px;
+  width: 40px;
+  border: 1.5px solid #f5f6fa;
+}
 .user_img_msg {
   height: 40px;
   width: 40px;
   border: 1.5px solid #f5f6fa;
+}
+.active_img_cont {
+  position: relative;
+  height: 40px;
+  width: 40px;
 }
 .img_cont {
   position: relative;
@@ -139,6 +140,22 @@ body {
 .img_cont_msg {
   height: 40px;
   width: 40px;
+}
+.active_users_count {
+  margin-bottom: 0px;
+  margin-top: 5px;
+  bottom: 0.2em;
+  right: 0.4em;
+}
+.active_online_icon {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  background-color: #4cd137;
+  border-radius: 50%;
+  bottom: 0.2em;
+  right: 0.4em;
+  border: 1.5px solid white;
 }
 .online_icon {
   position: absolute;
