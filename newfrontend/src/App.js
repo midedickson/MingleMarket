@@ -57,7 +57,6 @@ class App extends React.Component {
         })
         .catch((err) => console.log(err));
     }, 5000);
-    this.props.onTryAutoSignup();
   }
 
   componentWillUnmount() {
@@ -117,48 +116,46 @@ class App extends React.Component {
           start={this.state.startConfetti}
           currentBg={this.state.bgColor}
         />
-        <div className="container-fluid h-100 app">
-          <Switch>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route path="/chat">
-              <BackgroundChanger color={this.state.bgColor}>
-                <ConfettiAni
-                  start={this.state.startConfetti}
-                  type={this.state.confettiType}
-                />
-                <SkyConfetti
-                  start={this.state.startConfetti}
-                  type={this.state.confettiType}
-                />
-                <div className="container-fluid row chat">
-                  <Sidepanel />
-                  <div className="col-md-8 col-xl-9">
-                    <div className="card">
-                      <AddChatModal
-                        isVisible={this.props.showAddChatPopup}
-                        close={this.props.closeAddChatPopup}
-                      />
-                      <Profile />
-                      <BaseRouter />
-                    </div>
+        <Switch>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/chat">
+            <BackgroundChanger color={this.state.bgColor}>
+              <ConfettiAni
+                start={this.state.startConfetti}
+                type={this.state.confettiType}
+              />
+              <SkyConfetti
+                start={this.state.startConfetti}
+                type={this.state.confettiType}
+              />
+              <div className="container-fluid row chat">
+                <Sidepanel />
+                <div className="col-md-8 col-xl-9">
+                  <div className="card">
+                    <AddChatModal
+                      isVisible={this.props.showAddChatPopup}
+                      close={this.props.closeAddChatPopup}
+                    />
+                    <Profile />
+                    <BaseRouter />
                   </div>
-                  <Footer />
                 </div>
-              </BackgroundChanger>
-            </Route>
-            <Route path="/profile">
-              <UserProfile />
-            </Route>
-            <Route path="/update-profile">
-              <UpdateProfile />
-            </Route>
-            <Route exact path="/">
-              <Homepage />
-            </Route>
-          </Switch>
-        </div>
+                <Footer />
+              </div>
+            </BackgroundChanger>
+          </Route>
+          <Route path="/profile">
+            <UserProfile />
+          </Route>
+          <Route path="/update-profile">
+            <UpdateProfile />
+          </Route>
+          <Route exact path="/">
+            <Homepage />
+          </Route>
+        </Switch>
       </Router>
     );
   }

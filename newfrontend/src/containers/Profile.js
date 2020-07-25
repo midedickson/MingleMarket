@@ -20,31 +20,12 @@ class Profile extends React.Component {
             <span className="online_icon"></span>
           </div>
           <div className="user_info">
-            <span>{this.props.username}</span>
-            <p>1767 Messages</p>
-          </div>
-          <div className="video_cam">
-            <span>
-              <i className="fas fa-video"></i>
-            </span>
-            <span>
-              <i className="fas fa-phone"></i>
-            </span>
+            <span className="text-danger">MINGLE MARKET CHAT ROOM</span>
           </div>
         </div>
         <span id="action_menu_btn">
-          <i className="fas fa-ellipsis-v"></i>
+          <i class="fas fa-smile-beam"></i>
         </span>
-        <div className="action_menu">
-          <ul>
-            <li>
-              <i className="fas fa-user-circle"></i> View profile
-            </li>
-            <li>
-              <i className="fas fa-plus"></i> Add to group
-            </li>
-          </ul>
-        </div>
       </div>
     );
   }

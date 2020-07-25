@@ -1,37 +1,43 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 class UpdateProfile extends React.Component {
   render() {
+    const profile = this.props.profile;
+    if (this.props.token === null) {
+      return <Redirect to="/" />;
+    }
     return (
       <div class="container bootstrap snippet">
         <div class="row">
           <div class="col-sm-10">
-            <h1>User name</h1>
+            <h1>{this.props.user}</h1>
           </div>
-          <div class="col-sm-2">
-            {/* <a href="/users" class="pull-right">
-              <img
-                title="profile image"
-                class="img-circle img-responsive"
-                src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100"
-              />
-            </a> */}
-          </div>
+          <div class="col-sm-2"></div>
         </div>
-        <div class="row">
-          <div class="col-sm-3">
-            <div class="text-center">
-              <img
-                src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                class="avatar img-circle img-thumbnail"
-                alt="avatar"
-              />
-              <h6>Upload a different photo...</h6>
-              <input type="file" class="text-center center-block file-upload" />
+        <form class="form" method="post" id="registrationForm">
+          <div class="row">
+            <div class="form-group col-sm-3">
+              <div class="text-center">
+                <label for="profile_photo">
+                  <h4>Display Picture</h4>
+                </label>
+                <img
+                  src={profile.photo}
+                  class="avatar img-circle img-thumbnail"
+                  alt="avatar"
+                />
+                <h6>Upload a different photo...</h6>
+                <input
+                  name="profile_photo"
+                  type="file"
+                  id="profile_photo"
+                  class="text-center center-block file-upload"
+                />
+              </div>
             </div>
-          </div>
-          <div class="col-sm-9">
-            <form class="form" method="post" id="registrationForm">
+            <div class="col-sm-9">
               <div class="form-group">
                 <div class="col-xs-6">
                   <label for="first_name">
@@ -42,7 +48,7 @@ class UpdateProfile extends React.Component {
                     class="form-control"
                     name="first_name"
                     id="first_name"
-                    placeholder="first name"
+                    placeholder={profile.first_name}
                     title="enter your first name if any."
                   />
                 </div>
@@ -57,7 +63,7 @@ class UpdateProfile extends React.Component {
                     class="form-control"
                     name="last_name"
                     id="last_name"
-                    placeholder="last name"
+                    placeholder={profile.last_name}
                     title="enter your last name if any."
                   />
                 </div>
@@ -72,7 +78,7 @@ class UpdateProfile extends React.Component {
                     class="form-control"
                     name="phone"
                     id="phone"
-                    placeholder="enter phone"
+                    placeholder={profile.phone_number}
                     title="enter your phone number if any."
                   />
                 </div>
@@ -87,7 +93,22 @@ class UpdateProfile extends React.Component {
                     class="form-control"
                     name="bio"
                     id="bio"
-                    placeholder="Enter a short description of yourself"
+                    placeholder={profile.bio}
+                    title="Enter a short description of yourself"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-6">
+                  <label for="mobile">
+                    <h4>Catch Phrase</h4>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="catch_phrase"
+                    id="catch_phrase"
+                    placeholder={profile.catch_phrase}
                     title="Enter a short description of yourself"
                   />
                 </div>
@@ -99,12 +120,20 @@ class UpdateProfile extends React.Component {
                   </button>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     );
   }
 }
 
-export default UpdateProfile;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.username,
+    profile: state.auth.profile,
+    token: state.auth.token,
+  };
+};
+
+export default connect(mapStateToProps)(UpdateProfile);
