@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Switch } from "antd";
 import * as authActions from "../store/actions/auth";
-import logo from "../assets/newminglelogo.png";
+import logo from "../assets/logo.png";
 import Music from "../assets/Sunfire - Young Free And Single.mp3";
 import AnimationDropdown from "../components/AnimationDropdown";
 import BackgroundDropdown from "../components/BackgroundDropdown";
@@ -24,7 +24,7 @@ export class Header extends Component {
       <ul className="navbar-nav mr-auto">
         <li className="nav-item">
           <Link to="/register" className="nav-link">
-            <button className="nav-link btn btn-outline-warning text-danger">
+            <button className="nav-link btn btn-outline-warning text-dark">
               Register
             </button>
           </Link>
@@ -48,7 +48,7 @@ export class Header extends Component {
       <ul className="navbar-nav mr-auto">
         <li className="nav-item dropdown">
           <div
-            className="nav-link dropdown-toggle text-danger"
+            className="nav-link dropdown-toggle text-dark"
             id="navbarDropdown2"
             role="button"
             data-toggle="dropdown"
@@ -58,7 +58,7 @@ export class Header extends Component {
             Hi, {this.props.username}
           </div>
           <div
-            className="dropdown-menu text-danger"
+            className="dropdown-menu text-dark"
             aria-labelledby="navbarDropdown2"
           >
             <Link to="/profile" className="dropdown-item">
@@ -74,7 +74,7 @@ export class Header extends Component {
         </li>
         <li className="nav-item dropdown">
           <div
-            className="nav-link dropdown-toggle text-danger"
+            className="nav-link dropdown-toggle text-dark"
             id="navbarDropdown2"
             role="button"
             data-toggle="dropdown"
@@ -93,7 +93,7 @@ export class Header extends Component {
         </li>
         <li className="nav-item dropdown">
           <div
-            className="nav-link dropdown-toggle text-danger"
+            className="nav-link dropdown-toggle text-dark"
             id="navbarDropdown2"
             role="button"
             data-toggle="dropdown"
@@ -122,7 +122,7 @@ export class Header extends Component {
         <li className="nav-item">
           <button
             onClick={(token) => this.props.logout(this.props.token)}
-            className="nav-link btn btn-outline-warning text-danger"
+            className="nav-link btn btn-outline-warning text-dark"
           >
             Logout
           </button>
@@ -131,9 +131,9 @@ export class Header extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+      <nav className="navbar navbar-expand-md sticky-top">
         <Link to="/" className="navbar-brand">
-          <img src={logo} width="100" height="30" alt="" />
+          <img src={logo} width="70" height="30" alt="" />
         </Link>
         <button
           className="navbar-toggler"

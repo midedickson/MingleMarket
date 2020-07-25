@@ -24,18 +24,16 @@ body {
   margin-top: 0;
 }
 
-/*CHAT STYLES*/
-
-.main-chat {
-  height: 100%;
-  margin: 0;
-  background: #7f7fd5;
-  background: -webkit-linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
-  background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
+.navbar {
+  background-color: rgb(143, 143, 143);
 }
 
+/*CHAT STYLES*/
+.chat {
+  height: 80vh;
+}
 .card {
-  height: 520px;
+  height: 100%;
   border-radius: 15px !important;
   background-color: rgba(149, 121, 121, 0.4) !important;
 }
@@ -264,11 +262,11 @@ body {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.2);
 }
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   .contacts_card {
     margin-bottom: 15px !important;
   }
-}
+} */
 
 /*Login And Register Styles*/
 :root {

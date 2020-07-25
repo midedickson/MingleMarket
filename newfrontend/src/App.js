@@ -132,7 +132,7 @@ class App extends React.Component {
                   start={this.state.startConfetti}
                   type={this.state.confettiType}
                 />
-                <div className="container-fluid row">
+                <div className="container-fluid row chat">
                   <Sidepanel />
                   <div className="col-md-8 col-xl-9">
                     <div className="card">

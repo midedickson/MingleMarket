@@ -45,7 +45,7 @@ class Sidepanel extends React.Component {
       );
     });
     return (
-      <div className="col-md-4 col-xl-3 chat">
+      <div className="col-md-4 col-xl-3">
         <div className="card mb-sm-3 mb-md-0 contacts_card">
           <div className="card-header">
             <div className="input-group">
