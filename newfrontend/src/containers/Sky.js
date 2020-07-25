@@ -17,8 +17,7 @@ const images = {
   4: cake1,
   5: cake2,
   6: hat1,
-  7: hat2,
-  8: mingle
+  7: mingle,
 }
 
 
