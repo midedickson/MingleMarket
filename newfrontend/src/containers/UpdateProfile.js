@@ -7,12 +7,12 @@ class UpdateProfile extends React.Component {
   constructor(props) {
     super(props);
       this.state = {
+        profile_photo: null,
         first_name: '',
         last_name: '',
         phone_number: '',
         bio: '',
         catch_phrase: '',
-        profile_photo: null
       }
       this.handleChange = this.handleChange.bind(this);
       this.fileChange = this.fileChange.bind(this)
@@ -37,12 +37,12 @@ class UpdateProfile extends React.Component {
     e.preventDefault();
     this.props.updateProfile(
       this.props.user,
-      e.target.profile_photo.files[0],
-      e.target.first_name.value,
-      e.target.last_name.value,
-      e.target.phone_number.value,
-      e.target.bio.value,
-      e.target.catch_phrase.value,
+      this.state.profile_photo,
+      this.state.first_name,
+      this.state.last_name,
+      this.state.phone_number,
+      this.state.bio,
+      this.state.catch_phrase,
       this.props.token
     );
   };
@@ -130,7 +130,7 @@ class UpdateProfile extends React.Component {
                   <input
                     type="text"
                     className="form-control"
-                    name="phone"
+                    name="phone_number"
                     id="phone"
                     placeholder={profile.phone_number}
                     value={this.state.phone_number}
