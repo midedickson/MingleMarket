@@ -4,7 +4,36 @@ import { Redirect } from "react-router-dom";
 import * as authActions from "../store/actions/auth";
 
 class UpdateProfile extends React.Component {
+  constructor(props) {
+    super(props);
+      this.state = {
+        first_name: '',
+        last_name: '',
+        phone_number: '',
+        bio: '',
+        catch_phrase: '',
+        profile_photo: null
+      }
+      this.handleChange = this.handleChange.bind(this);
+      this.fileChange = this.fileChange.bind(this)
+
+  }
+
+
+  handleChange(event) {
+    this.setState({
+    	[event.target.name]: event.target.value
+    });
+  }
+
+  fileChange(event) {
+    this.setState({
+      [event.target.name]: event.target.files[0]
+    })
+  }
+
   updateUserProfile = (e) => {
+    console.log(this.state)
     e.preventDefault();
     this.props.updateProfile(
       this.props.user,
@@ -53,6 +82,7 @@ class UpdateProfile extends React.Component {
                   name="profile_photo"
                   type="file"
                   id="profile_photo"
+                  onChange={this.fileChange}
                   className="text-center center-block file-upload"
                 />
               </div>
@@ -69,6 +99,8 @@ class UpdateProfile extends React.Component {
                     name="first_name"
                     id="first_name"
                     placeholder={profile.first_name}
+                    value={this.state.first_name}
+                    onChange={this.handleChange}
                     title="enter your first name if any."
                   />
                 </div>
@@ -84,6 +116,8 @@ class UpdateProfile extends React.Component {
                     name="last_name"
                     id="last_name"
                     placeholder={profile.last_name}
+                    value={this.state.last_name}
+                    onChange={this.handleChange}
                     title="enter your last name if any."
                   />
                 </div>
@@ -99,6 +133,8 @@ class UpdateProfile extends React.Component {
                     name="phone"
                     id="phone"
                     placeholder={profile.phone_number}
+                    value={this.state.phone_number}
+                    onChange={this.handleChange}
                     title="enter your phone number if any."
                   />
                 </div>
@@ -114,6 +150,8 @@ class UpdateProfile extends React.Component {
                     name="bio"
                     id="bio"
                     placeholder={profile.bio}
+                    value={this.state.bio}
+                    onChange={this.handleChange}
                     title="Enter a short description of yourself"
                   />
                 </div>
@@ -129,6 +167,8 @@ class UpdateProfile extends React.Component {
                     name="catch_phrase"
                     id="catch_phrase"
                     placeholder={profile.catch_phrase}
+                    value={this.state.catch_phrase}
+                    onChange={this.handleChange}
                     title="Enter a short description of yourself"
                   />
                 </div>
