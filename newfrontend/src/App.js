@@ -36,6 +36,21 @@ class App extends React.Component {
     this.toggleConfetti = this.toggleConfetti.bind(this);
     this.toggleBackground = this.toggleBackground.bind(this);
   }
+  waitForAuthDetails() {
+    const component = this;
+    setTimeout(() => {
+      if (
+        component.props.token !== null &&
+        component.props.token !== undefined
+      ) {
+        component.props.getProfile(component.props.token);
+      } else {
+        console.log("waiting for auth details");
+
+        component.waitForAuthDetails();
+      }
+    }, 100);
+  }
 
   baseUrl = "https://mingle-market.herokuapp.com/chat/animation/";
   headers = {
@@ -43,6 +58,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    this.waitForAuthDetails();
     this.inter = setInterval(() => {
       axios
         .get(this.baseUrl, {
@@ -106,7 +122,6 @@ class App extends React.Component {
   }
 
   render() {
-    this.props.getProfile(this.props.token);
     return (
       <Router>
         <Navbar

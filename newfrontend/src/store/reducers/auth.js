@@ -44,7 +44,12 @@ const userProfile = (state, action) => {
     profile: action.profile,
   });
 };
-
+const profileUpdateFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error,
+    loading: false,
+  });
+};
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
@@ -56,7 +61,10 @@ const authReducer = (state = initialState, action) => {
     case actionTypes.AUTH_LOGOUT:
       return authLogout(state, action);
     case actionTypes.GET_PROFILE_SUCCESS:
+    case actionTypes.UPDATE_PROFILE_SUCCESS:
       return userProfile(state, action);
+    case actionTypes.UPDATE_PROFILE_FAIL:
+      return profileUpdateFail(state, action);
     default:
       return state;
   }

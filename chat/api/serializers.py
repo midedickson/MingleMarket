@@ -9,6 +9,8 @@ class StringSerializer(serializers.StringRelatedField):
 
 
 class ContactSerializer(serializers.ModelSerializer):
+    user = StringSerializer(many=False)
+
     class Meta:
         model = Contact
         fields = '__all__'

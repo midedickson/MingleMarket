@@ -6,7 +6,8 @@ export const authStart = () => {
     type: actionTypes.AUTH_START,
   };
 };
-export const baseUrl = "https://mingle-market.herokuapp.com/";
+export const baseUrl = "http://127.0.0.1:8000/";
+// export const baseUrl = "https://mingle-market.herokuapp.com/api/";
 
 export const authSuccess = (username, token) => {
   return {
@@ -19,6 +20,13 @@ export const authSuccess = (username, token) => {
 export const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
+    error: error,
+  };
+};
+
+export const profileUpdateFail = (error) => {
+  return {
+    type: actionTypes.UPDATE_PROFILE_FAIL,
     error: error,
   };
 };
@@ -119,12 +127,52 @@ export const getUserProfile = (token) => {
       Authorization: `Token ${token}`,
     };
     axios
-      .get(baseUrl + "chat/contact_detail/", { headers: headers })
+      .get(baseUrl + "api/chat/contact_detail/", { headers: headers })
       .then((res) => {
         dispatch(getUserProfileSuccess(res.data));
       })
       .catch((err) => {
         dispatch(authFail(err));
+      });
+  };
+};
+
+export const updateUserProfile = (
+  user,
+  photo,
+  first_name,
+  last_name,
+  phone_number,
+  bio,
+  catch_phrase,
+  token
+) => {
+  return (dispatch) => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    };
+    axios
+      .put(
+        baseUrl + "api/chat/contact_detail/",
+        {
+          user: user,
+          photo: photo,
+          first_name: first_name,
+          last_name: last_name,
+          phone_number: phone_number,
+          bio: bio,
+          catch_phrase: catch_phrase,
+        },
+        {
+          headers: headers,
+        }
+      )
+      .then((res) => {
+        dispatch(getUserProfileSuccess(res.data));
+      })
+      .catch((err) => {
+        dispatch(profileUpdateFail(err));
       });
   };
 };

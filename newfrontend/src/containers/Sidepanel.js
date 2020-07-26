@@ -17,7 +17,6 @@ class Sidepanel extends React.Component {
           component.props.username,
           component.props.token
         );
-        return;
       } else {
         console.log("waiting for auth details");
         component.waitForAuthDetails();

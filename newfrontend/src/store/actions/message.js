@@ -30,7 +30,7 @@ export const getUserChats = (username, token) => {
       Authorization: `Token ${token}`,
     };
     axios
-      .get(baseUrl + `chat/?username=${username}`, { headers: headers })
+      .get(baseUrl + `api/chat/?username=${username}`, { headers: headers })
       .then((res) => dispatch(getUserChatsSuccess(res.data)));
   };
 };

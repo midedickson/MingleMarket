@@ -94,19 +94,20 @@ class ContactUpdateView(UpdateAPIView):
     permission_classes = (permissions.IsAuthenticated, )
 
 
-class ContactDetialView(RetrieveAPIView):
+class ContactDetailView(RetrieveAPIView):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
     permission_classes = (permissions.IsAuthenticated, )
 
     def get_object(self):
         username = self.request.query_params.get('username', None)
+        user = get_object_or_404(User, username=username)
         if username is not None:
-            contact = get_user_contact(username)
+            contact = get_object_or_404(Contact, user=user)
         return contact
 
 
-class UserContactDetailView(RetrieveAPIView):
+class UserContactDetailView(RetrieveUpdateAPIView):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
     permission_classes = (permissions.IsAuthenticated, )
