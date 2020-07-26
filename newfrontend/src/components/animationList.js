@@ -6,10 +6,10 @@ const animations = [
     name: "Balloon",
   },
   {
-    name: "Cake",
+    name: "Hat",
   },
   {
-    name: "Hat",
+    name: "Cake",
   },
   {
     name: "Mingle Logo",
