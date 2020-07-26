@@ -61,4 +61,4 @@ def add_contact_to_chat(sender, instance, created, **kwargs):
 class Animation(models.Model):
     startConfetti = models.CharField(max_length=3, null=True, blank=True)
     confettiType = models.IntegerField()
-    bgColor = models.CharField(max_length=10, null=True, blank=True)
+    bgColor = models.CharField(max_length=15, null=True, blank=True)

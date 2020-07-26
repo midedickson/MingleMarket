@@ -14,13 +14,13 @@ import Homepage from "./containers/Homepage";
 import Register from "./containers/Register";
 import Navbar from "./containers/Navbar";
 import UserProfile from "./containers/UserProfile";
-import logo from "./assets/hey_mingle.png";
 import BackgroundChanger from "./containers/Background";
 import UpdateProfile from "./containers/UpdateProfile";
 
 import "./App.css";
 import ConfettiAni from "./containers/Confetti";
 import SkyConfetti from "./containers/Sky";
+import Footer from "./containers/OnlineVisitors";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -52,12 +52,11 @@ class App extends React.Component {
           this.setState({
             startConfetti: res.data.startConfetti === "on",
             confettiType: res.data.confettiType,
-            bgColor: res.data.bgColor
+            bgColor: res.data.bgColor,
           });
         })
         .catch((err) => console.log(err));
     }, 5000);
-    this.props.onTryAutoSignup()
   }
 
   componentWillUnmount() {
@@ -99,7 +98,7 @@ class App extends React.Component {
         },
         { headers: this.headers }
       )
-      .then(res => {
+      .then((res) => {
         this.setState({
           bgColor: color,
         });
@@ -117,47 +116,46 @@ class App extends React.Component {
           start={this.state.startConfetti}
           currentBg={this.state.bgColor}
         />
-        <div className="container-fluid h-100 app">
-          <Switch>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route path="/chat">
-              <BackgroundChanger color={this.state.bgColor}>
-                <ConfettiAni
-                  start={this.state.startConfetti}
-                  type={this.state.confettiType}
-                />
-                <SkyConfetti
-                  start={this.state.startConfetti}
-                  type={this.state.confettiType}
-                />
-                <div className="container-fluid row justify-content-center">
-                  <Sidepanel />
-                  <div className="col-md-8 col-xl-6 chat">
-                    <div className="card">
-                      <AddChatModal
-                        isVisible={this.props.showAddChatPopup}
-                        close={this.props.closeAddChatPopup}
-                      />
-                      <Profile />
-                      <BaseRouter />
-                    </div>
+        <Switch>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/chat">
+            <BackgroundChanger color={this.state.bgColor}>
+              <ConfettiAni
+                start={this.state.startConfetti}
+                type={this.state.confettiType}
+              />
+              <SkyConfetti
+                start={this.state.startConfetti}
+                type={this.state.confettiType}
+              />
+              <div className="container-fluid row chat">
+                <Sidepanel />
+                <div className="col-md-8 col-xl-9">
+                  <div className="card">
+                    <AddChatModal
+                      isVisible={this.props.showAddChatPopup}
+                      close={this.props.closeAddChatPopup}
+                    />
+                    <Profile />
+                    <BaseRouter />
                   </div>
                 </div>
-              </BackgroundChanger>
-            </Route>
-            <Route path="/profile">
-              <UserProfile />
-            </Route>
-            <Route path="/update-profile">
-              <UpdateProfile />
-            </Route>
-            <Route exact path="/">
-              <Homepage />
-            </Route>
-          </Switch>
-        </div>
+                <Footer />
+              </div>
+            </BackgroundChanger>
+          </Route>
+          <Route path="/profile">
+            <UserProfile />
+          </Route>
+          <Route path="/update-profile">
+            <UpdateProfile />
+          </Route>
+          <Route exact path="/">
+            <Homepage />
+          </Route>
+        </Switch>
       </Router>
     );
   }

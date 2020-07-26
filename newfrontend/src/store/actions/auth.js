@@ -71,15 +71,14 @@ export const authLogin = (username, password) => {
   };
 };
 
-export const authSignup = (username, email, password1, password2) => {
+export const authSignup = (username, email, password) => {
   return (dispatch) => {
     dispatch(authStart());
     axios
       .post(baseUrl + "accounts/api/auth/register", {
         username: username,
         email: email,
-        password1: password1,
-        password2: password2,
+        password: password,
       })
       .then((res) => {
         const token = res.data.token;

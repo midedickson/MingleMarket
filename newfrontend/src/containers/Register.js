@@ -94,20 +94,6 @@ class Login extends React.Component {
                                   Enter Password
                                 </label>
                               </div>
-                              <div className="form-label-group">
-                                <input
-                                  type="password"
-                                  name="password2"
-                                  id="inputPassword2"
-                                  className="form-control"
-                                  placeholder="Confirm Password"
-                                  required
-                                />
-                                <label htmlFor="inputPassword2">
-                                  Confirm Password
-                                </label>
-                              </div>
-
                               <div className="custom-control custom-checkbox mb-3">
                                 <input
                                   type="checkbox"
@@ -160,8 +146,8 @@ const mapDispatchToProps = (dispatch) => {
     login: (userName, password) =>
       dispatch(authActions.authLogin(userName, password)),
     logout: () => dispatch(authActions.logout()),
-    signup: (username, email, password1, password2) =>
-      dispatch(authActions.authSignup(username, email, password1, password2)),
+    signup: (username, email, password) =>
+      dispatch(authActions.authSignup(username, email, password)),
     addChat: () => dispatch(navActions.openAddChatPopup()),
   };
 };

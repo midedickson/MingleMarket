@@ -88,6 +88,12 @@ class ContactCreateView(CreateAPIView):
     permission_classes = (permissions.IsAuthenticated, )
 
 
+class ContactUpdateView(UpdateAPIView):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+
 class ContactDetialView(RetrieveAPIView):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
@@ -109,12 +115,6 @@ class UserContactDetailView(RetrieveAPIView):
         user = self.request.user
         contact = get_object_or_404(Contact, user=user)
         return contact
-
-
-class ContactUpdateView(UpdateAPIView):
-    queryset = Contact.objects.all()
-    serializer_class = ContactSerializer
-    permission_classes = (permissions.IsAuthenticated, )
 
 
 class ContactDeleteView(DestroyAPIView):
