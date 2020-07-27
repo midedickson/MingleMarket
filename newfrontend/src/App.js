@@ -28,6 +28,7 @@ class App extends React.Component {
       startConfetti: false,
       confettiType: null,
       bgColor: "transparent",
+      showEmojiPicker: false,
     };
     WebSocketInstance.addCallbacks(
       this.props.setMessages.bind(this),
@@ -52,7 +53,7 @@ class App extends React.Component {
     }, 100);
   }
 
-  baseUrl = "https://mingle-market.herokuapp.com/chat/animation/";
+  baseUrl = "https://mingle-market.herokuapp.com/api/chat/animation/";
   headers = {
     "Content-Type": "application/json",
   };
@@ -122,6 +123,7 @@ class App extends React.Component {
   }
 
   render() {
+    const { showEmojiPicker } = this.state;
     return (
       <Router>
         <Navbar
@@ -153,7 +155,6 @@ class App extends React.Component {
                       isVisible={this.props.showAddChatPopup}
                       close={this.props.closeAddChatPopup}
                     />
-                    <Profile />
                     <BaseRouter />
                   </div>
                 </div>

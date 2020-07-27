@@ -4,6 +4,7 @@ import * as authActions from "../store/actions/auth";
 import * as navActions from "../store/actions/nav";
 import * as msgActions from "../store/actions/message";
 import Contact from "../components/Contact";
+import { Redirect } from "react-router-dom";
 
 class Sidepanel extends React.Component {
   waitForAuthDetails() {
@@ -32,6 +33,9 @@ class Sidepanel extends React.Component {
     this.props.addChat();
   }
   render() {
+    if (this.props.token === null) {
+      return <Redirect to="/" />;
+    }
     const activeChats = this.props.chats.map((c) => {
       return (
         <Contact

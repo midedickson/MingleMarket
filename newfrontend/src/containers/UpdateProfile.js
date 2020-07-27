@@ -6,35 +6,34 @@ import * as authActions from "../store/actions/auth";
 class UpdateProfile extends React.Component {
   constructor(props) {
     super(props);
-      this.state = {
-        profile_photo: null,
-        first_name: '',
-        last_name: '',
-        phone_number: '',
-        bio: '',
-        catch_phrase: '',
-      }
-      this.handleChange = this.handleChange.bind(this);
-      this.fileChange = this.fileChange.bind(this)
-
+    this.state = {
+      profile_photo: null,
+      first_name: props.profile.first_name,
+      last_name: props.profile.last_name,
+      phone_number: props.profile.phone_number,
+      bio: props.profile.bio,
+      catch_phrase: props.profile.catch_phrase,
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.fileChange = this.fileChange.bind(this);
   }
-
 
   handleChange(event) {
     this.setState({
-    	[event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   }
 
   fileChange(event) {
     this.setState({
-      [event.target.name]: event.target.files[0]
-    })
+      [event.target.name]: event.target.files[0],
+    });
   }
 
   updateUserProfile = (e) => {
-    console.log(this.state)
+    console.log(this.state);
     e.preventDefault();
+
     this.props.updateProfile(
       this.props.user,
       this.state.profile_photo,
@@ -48,7 +47,7 @@ class UpdateProfile extends React.Component {
   };
 
   render() {
-    const profile = this.props.profile;
+    const state = this.state;
     if (this.props.token === null) {
       return <Redirect to="/" />;
     }
@@ -65,6 +64,7 @@ class UpdateProfile extends React.Component {
           method="put"
           id="registrationForm"
           onSubmit={this.updateUserProfile}
+          enctype="multipart/form-data"
         >
           <div className="row">
             <div className="form-group col-sm-3">
@@ -73,7 +73,7 @@ class UpdateProfile extends React.Component {
                   <h4>Display Picture</h4>
                 </label>
                 <img
-                  src={profile.photo}
+                  src={this.props.profile.photo}
                   className="avatar img-circle img-thumbnail"
                   alt="avatar"
                 />
@@ -98,8 +98,7 @@ class UpdateProfile extends React.Component {
                     className="form-control"
                     name="first_name"
                     id="first_name"
-                    placeholder={profile.first_name}
-                    value={this.state.first_name}
+                    value={state.first_name}
                     onChange={this.handleChange}
                     title="enter your first name if any."
                   />
@@ -115,8 +114,7 @@ class UpdateProfile extends React.Component {
                     className="form-control"
                     name="last_name"
                     id="last_name"
-                    placeholder={profile.last_name}
-                    value={this.state.last_name}
+                    value={state.last_name}
                     onChange={this.handleChange}
                     title="enter your last name if any."
                   />
@@ -132,8 +130,7 @@ class UpdateProfile extends React.Component {
                     className="form-control"
                     name="phone_number"
                     id="phone"
-                    placeholder={profile.phone_number}
-                    value={this.state.phone_number}
+                    value={state.phone_number}
                     onChange={this.handleChange}
                     title="enter your phone number if any."
                   />
@@ -149,8 +146,7 @@ class UpdateProfile extends React.Component {
                     className="form-control"
                     name="bio"
                     id="bio"
-                    placeholder={profile.bio}
-                    value={this.state.bio}
+                    value={state.bio}
                     onChange={this.handleChange}
                     title="Enter a short description of yourself"
                   />
@@ -166,8 +162,7 @@ class UpdateProfile extends React.Component {
                     className="form-control"
                     name="catch_phrase"
                     id="catch_phrase"
-                    placeholder={profile.catch_phrase}
-                    value={this.state.catch_phrase}
+                    value={state.catch_phrase}
                     onChange={this.handleChange}
                     title="Enter a short description of yourself"
                   />

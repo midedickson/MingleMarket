@@ -148,26 +148,21 @@ export const updateUserProfile = (
   token
 ) => {
   return (dispatch) => {
+    const uploadProfileData = new FormData();
+    uploadProfileData.append("user", user);
+    uploadProfileData.append("photo", photo);
+    uploadProfileData.append("first_name", first_name);
+    uploadProfileData.append("last_name", last_name);
+    uploadProfileData.append("phone_number", phone_number);
+    uploadProfileData.append("bio", bio);
+    uploadProfileData.append("catch_phrase", catch_phrase);
     const headers = {
-      "Content-Type": "application/json",
       Authorization: `Token ${token}`,
     };
     axios
-      .put(
-        baseUrl + "api/chat/contact_detail/",
-        {
-          user: user,
-          photo: photo,
-          first_name: first_name,
-          last_name: last_name,
-          phone_number: phone_number,
-          bio: bio,
-          catch_phrase: catch_phrase,
-        },
-        {
-          headers: headers,
-        }
-      )
+      .put(baseUrl + "api/chat/contact_detail/", uploadProfileData, {
+        headers: headers,
+      })
       .then((res) => {
         dispatch(getUserProfileSuccess(res.data));
       })
