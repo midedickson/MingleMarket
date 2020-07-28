@@ -104,7 +104,8 @@ class Login extends React.Component {
                                   className="custom-control-label"
                                   htmlFor="customCheck1"
                                 >
-                                  Remember password
+                                  I accept the Terms&Conditions and Privacy
+                                  Policy
                                 </label>
                               </div>
                               <div>

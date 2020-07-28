@@ -147,14 +147,15 @@ class Chat extends React.Component {
           <div className="d-flex bd-highlight">
             <div className="img_cont">
               <img
-                src="http://emilcarlsson.se/assets/harveyspecter.png"
-                alt=""
+                src={this.props.profile.photo}
+                alt="user_photo"
                 className="rounded-circle user_img"
               />
               <span className="online_icon"></span>
             </div>
-            <div className="user_info">
-              <span className="text-danger">MINGLE MARKET CHAT ROOM</span>
+            <div className="user_info justify-content-center">
+              <p className="text-danger">MINGLE MARKET CHAT ROOM</p>
+              <span>...LONELY NIGHTS ARE OVER...</span>
             </div>
           </div>
           <span id="action_menu_btn">
@@ -199,6 +200,7 @@ const mapStateToProps = (state) => {
     username: state.auth.username,
     token: state.auth.token,
     messages: state.message.messages,
+    profile: state.auth.profile,
   };
 };
 
