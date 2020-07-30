@@ -2,9 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import WebSocketInstance from "../websocket";
 import Hoc from "../hoc/hoc";
+import { Smile } from "react-feather";
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
 
 class Chat extends React.Component {
-  state = { message: "" };
+  state = {
+    message: "",
+    showEmojiPicker: false,
+  };
   initialiseChat() {
     this.waitForSocketConnection(() => {
       WebSocketInstance.fetchMessages(
@@ -140,7 +146,23 @@ class Chat extends React.Component {
   //   }
   // }
 
+  toggleEmojiPicker = () => {
+    this.setState({
+      showEmojiPicker: !this.state.showEmojiPicker,
+    });
+  };
+
+  addEmoji = (emoji) => {
+    const { message } = this.state;
+    const text = `${message}${emoji.native}`;
+
+    this.setState({
+      message: text,
+    });
+  };
+
   render() {
+    const { showEmojiPicker } = this.state;
     return (
       <Hoc>
         <div className="card-header msg_head">
@@ -149,29 +171,36 @@ class Chat extends React.Component {
               <img
                 src={this.props.profile.photo}
                 alt="user_photo"
-                className="rounded-circle user_img"
+                className="rounded-circle active_user_img"
               />
-              <span className="online_icon"></span>
+              <span className="active_online_icon"></span>
             </div>
-            <div className="user_info justify-content-center">
-              <p className="text-danger">MINGLE MARKET CHAT ROOM</p>
-              <span>...LONELY NIGHTS ARE OVER...</span>
+            <div className="user_info">
+              <span className="username text-danger">
+                {this.props.username}
+              </span>
+              <br />
+              <span className="catch">{this.props.profile.catch_phrase}</span>
             </div>
           </div>
-          <span id="action_menu_btn">
-            <i class="fas fa-smile-beam"></i>
-          </span>
         </div>
         <div className="card-body msg_card_body">
           {this.props.messages && this.renderMessages(this.props.messages)}
+          {showEmojiPicker ? (
+            <Picker set="apple" onSelect={this.addEmoji} />
+          ) : null}
         </div>
         <div className="card-footer">
           <form onSubmit={this.sendMessageHandler}>
             <div className="input-group">
               <div className="input-group-append">
-                <span className="input-group-text attach_btn">
-                  <i className="fas fa-paperclip"></i>
-                </span>
+                <button
+                  type="button"
+                  className="input-group-text attach_btn toggle-emoji"
+                  onClick={this.toggleEmojiPicker}
+                >
+                  <Smile />
+                </button>
               </div>
               <input
                 onChange={this.messageChangeHandler}
@@ -183,9 +212,9 @@ class Chat extends React.Component {
                 placeholder="Type your message..."
               />
               <div id="chat-message-submit" className="input-group-append">
-                <span className="input-group-text send_btn">
+                <button type="submit" className="input-group-text send_btn">
                   <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                </span>
+                </button>
               </div>
             </div>
           </form>

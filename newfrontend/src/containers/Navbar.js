@@ -39,7 +39,15 @@ export class Header extends Component {
           )}
         </li>
         <li className="nav-item">
-          Music <Switch size="small" defaultChecked onChange={this.onChange} />
+          <div className="lonely_nav">
+            Music{" "}
+            <Switch size="small" defaultChecked onChange={this.onChange} />
+          </div>
+        </li>
+        <li className="nav-item">
+          <Link to="/register" className="nav-link">
+            Support Center
+          </Link>
         </li>
       </ul>
     );
@@ -126,6 +134,17 @@ export class Header extends Component {
           >
             Logout
           </button>
+        </li>
+        <li className="nav-item">
+          <div className="text-warning mingle_nav">MINGLE MARKET CHAT ROOM</div>
+        </li>
+        <li className="nav-item">
+          <div className="lonely_nav">...LONELY NIGHTS ARE OVER...</div>
+        </li>
+        <li className="nav-item">
+          <Link to="/register" className="nav-link">
+            Support Center
+          </Link>
         </li>
       </ul>
     );
