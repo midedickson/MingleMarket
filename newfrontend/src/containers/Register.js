@@ -94,18 +94,32 @@ class Login extends React.Component {
                                   Enter Password
                                 </label>
                               </div>
+                              <div className="form-label-group">
+                                <p>
+                                  This site is designed to create a good
+                                  atmosphere for socializing in form of Chatting
+                                  and therefore we advised all our visitors to
+                                  be of a good character to one another, in
+                                  order to achieve our aims and objectives.
+                                  <br />
+                                  Please DO READ Rules and Regulations
+                                </p>
+                              </div>
                               <div className="custom-control custom-checkbox mb-3">
                                 <input
                                   type="checkbox"
                                   className="custom-control-input"
                                   id="customCheck1"
+                                  required
                                 />
                                 <label
                                   className="custom-control-label"
                                   htmlFor="customCheck1"
                                 >
-                                  I accept the Terms&Conditions and Privacy
-                                  Policy
+                                  I promise to adhere to the{" "}
+                                  <Link to="rules-and-support/">
+                                    Rules and Regulations
+                                  </Link>
                                 </label>
                               </div>
                               <div>

@@ -16,7 +16,7 @@ import Navbar from "./containers/Navbar";
 import UserProfile from "./containers/UserProfile";
 import BackgroundChanger from "./containers/Background";
 import UpdateProfile from "./containers/UpdateProfile";
-
+import Support from "./containers/SupportCenter";
 import "./App.css";
 import ConfettiAni from "./containers/Confetti";
 import SkyConfetti from "./containers/Sky";
@@ -136,6 +136,9 @@ class App extends React.Component {
         <Switch>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/rules-and-support">
+            <Support />
           </Route>
           <Route path="/chat">
             <BackgroundChanger color={this.state.bgColor}>

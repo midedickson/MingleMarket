@@ -45,8 +45,10 @@ export class Header extends Component {
           </div>
         </li>
         <li className="nav-item">
-          <Link to="/register" className="nav-link">
-            Support Center
+          <Link to="/rules-and-support" className="nav-link">
+            <button className="nav-link btn btn-outline-warning text-dark">
+              Rules and Support
+            </button>
           </Link>
         </li>
       </ul>
@@ -163,7 +165,7 @@ export class Header extends Component {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon text-warning"></span>
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
