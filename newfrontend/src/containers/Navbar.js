@@ -55,7 +55,7 @@ export class Header extends Component {
     );
 
     const authLinks = (
-      <ul className="navbar-nav mr-auto">
+      <ul className="navbar-nav ml-auto">
         <li className="nav-item dropdown">
           <div
             className="nav-link dropdown-toggle text-dark"
@@ -82,44 +82,6 @@ export class Header extends Component {
             </div>
           </div>
         </li>
-        <li className="nav-item dropdown">
-          <div
-            className="nav-link dropdown-toggle text-dark"
-            id="navbarDropdown2"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Animations
-          </div>
-          <div className="dropdown-menu" aria-labelledby="navbarDropdown2">
-            <AnimationDropdown
-              toggleConfetti={this.props.toggleConfetti}
-              current={this.props.confettiType}
-              start={this.props.start}
-            />
-          </div>
-        </li>
-        <li className="nav-item dropdown">
-          <div
-            className="nav-link dropdown-toggle text-dark"
-            id="navbarDropdown2"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Backgrounds
-          </div>
-          <div className="dropdown-menu" aria-labelledby="navbarDropdown2">
-            <BackgroundDropdown
-              color={this.props.bgColor}
-              toggleBackground={this.props.toggleBackground}
-              currentBg={this.props.currentBg}
-            />
-          </div>
-        </li>
         <li className="nav-item">
           {this.state.music === true ? (
             <audio autoPlay="autoplay" hidden="hidden">
@@ -143,11 +105,11 @@ export class Header extends Component {
         <li className="nav-item">
           <div className="lonely_nav">...LONELY NIGHTS ARE OVER...</div>
         </li>
-        <li className="nav-item">
-          <Link to="/register" className="nav-link">
-            Support Center
-          </Link>
-        </li>
+        <Link to="/rules-and-support" className="nav-link">
+          <button className="nav-link btn btn-outline-warning text-dark">
+            Rules and Support
+          </button>
+        </Link>
       </ul>
     );
 
@@ -167,7 +129,50 @@ export class Header extends Component {
         >
           <span className="navbar-toggler-icon text-warning"></span>
         </button>
-
+        {this.props.username === "admin" ? (
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item dropdown">
+              <div
+                className="nav-link dropdown-toggle text-dark"
+                id="navbarDropdown2"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Animations
+              </div>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown2">
+                <AnimationDropdown
+                  toggleConfetti={this.props.toggleConfetti}
+                  current={this.props.confettiType}
+                  start={this.props.start}
+                />
+              </div>
+            </li>
+            <li className="nav-item dropdown">
+              <div
+                className="nav-link dropdown-toggle text-dark"
+                id="navbarDropdown2"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Backgrounds
+              </div>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown2">
+                <BackgroundDropdown
+                  color={this.props.bgColor}
+                  toggleBackground={this.props.toggleBackground}
+                  currentBg={this.props.currentBg}
+                />
+              </div>
+            </li>
+          </ul>
+        ) : (
+          ""
+        )}
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           {this.props.isAuthenticated ? authLinks : guestLinks}
         </div>

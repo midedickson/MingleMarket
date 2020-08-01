@@ -1,11 +1,16 @@
 import React from "react";
 import { NavLink, useRouteMatch } from "react-router-dom";
+import { connect } from "react-redux";
+import * as navActions from "../store/actions/nav";
 
 function Contact(props) {
   let { url } = useRouteMatch();
-
   return (
-    <NavLink to={`${url}${props.chatURL}`} style={{ color: "#fff" }}>
+    <NavLink
+      to={`${url}${props.chatURL}`}
+      style={{ color: "#fff" }}
+      onClick={() => props.showAlert(props.name)}
+    >
       <li className="active">
         <div className="d-flex bd-highlight">
           {/* <div className="img_cont">
@@ -25,5 +30,9 @@ function Contact(props) {
     </NavLink>
   );
 }
-
-export default Contact;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    showAlert: (content) => dispatch(navActions.showAlert(content)),
+  };
+};
+export default connect(null, mapDispatchToProps)(Contact);

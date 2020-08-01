@@ -21,6 +21,8 @@ import "./App.css";
 import ConfettiAni from "./containers/Confetti";
 import SkyConfetti from "./containers/Sky";
 import Footer from "./containers/OnlineVisitors";
+import Alerts from "./components/Alert";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -126,6 +128,8 @@ class App extends React.Component {
     const { showEmojiPicker } = this.state;
     return (
       <Router>
+        <Alerts />
+
         <Navbar
           toggleConfetti={this.toggleConfetti}
           toggleBackground={this.toggleBackground}

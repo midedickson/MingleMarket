@@ -11,6 +11,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import authReducer from "./store/reducers/auth";
 import navReducer from "./store/reducers/nav";
 import msgReducer from "./store/reducers/message";
+import { Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
 
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 function configureStore() {
@@ -26,12 +28,19 @@ function configureStore() {
 
   return store;
 }
-
+const alertOptions = {
+  timeout: 5000,
+  offset: "100px",
+  position: "top center",
+  transition: "scale",
+};
 const store = configureStore();
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <AlertProvider template={AlertTemplate} {...alertOptions}>
+        <App />
+      </AlertProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

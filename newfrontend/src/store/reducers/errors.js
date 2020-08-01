@@ -1,0 +1,16 @@
+import { GET_ERRORS } from "../actions/actionTypes";
+
+const initialState = {
+  msg: {},
+  status: null,
+};
+
+export default function (state = initialState, action) {
+  switch (action.type) {
+    case GET_ERRORS:
+      return {
+        masg: action.payload.msg,
+        status: action.payload.status,
+      };
+  }
+}

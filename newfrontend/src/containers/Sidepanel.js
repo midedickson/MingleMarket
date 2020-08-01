@@ -32,6 +32,7 @@ class Sidepanel extends React.Component {
   openAddChatPopup() {
     this.props.addChat();
   }
+
   render() {
     if (this.props.token === null) {
       return <Redirect to="/" />;
@@ -93,6 +94,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    showAlert: (content) => dispatch(navActions.showAlert(content)),
     logout: () => dispatch(authActions.logout()),
     addChat: () => dispatch(navActions.openAddChatPopup()),
     getUserChats: (username, token) =>

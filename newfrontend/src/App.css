@@ -417,6 +417,7 @@ body {
 }
 
 .mingle_nav {
+  margin-left: auto;
   margin-top: 5px;
   font-size: 20px;
 }
