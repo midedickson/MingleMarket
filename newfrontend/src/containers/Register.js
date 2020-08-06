@@ -24,8 +24,7 @@ class Login extends React.Component {
       this.props.signup(
         e.target.username.value,
         e.target.email.value,
-        e.target.password.value,
-        this.props.token
+        e.target.password.value
       );
     }
   };
@@ -93,7 +92,7 @@ class Login extends React.Component {
                                   placeholder="Enter Password"
                                   required
                                 />
-                                <label htmlFor="inputPassword2">
+                                <label htmlFor="inputPassword">
                                   Enter Password
                                 </label>
                               </div>
@@ -106,7 +105,7 @@ class Login extends React.Component {
                                   placeholder="Confirm Password"
                                   required
                                 />
-                                <label htmlFor="inputPassword">
+                                <label htmlFor="inputPassword2">
                                   Enter Password
                                 </label>
                               </div>
@@ -178,8 +177,8 @@ const mapDispatchToProps = (dispatch) => {
     login: (userName, password) =>
       dispatch(authActions.authLogin(userName, password)),
     logout: () => dispatch(authActions.logout()),
-    signup: (username, email, password, token) =>
-      dispatch(authActions.authSignup(username, email, password, token)),
+    signup: (username, email, password) =>
+      dispatch(authActions.authSignup(username, email, password)),
     addChat: () => dispatch(navActions.openAddChatPopup()),
   };
 };

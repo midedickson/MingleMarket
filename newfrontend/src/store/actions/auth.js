@@ -79,12 +79,11 @@ export const authLogin = (username, password) => {
   };
 };
 
-export const authSignup = (username, email, password, token) => {
+export const authSignup = (username, email, password) => {
   return (dispatch) => {
     dispatch(authStart());
     const headers = {
       "Content-Type": "application/json",
-      Authorization: `Token ${token}`,
     };
     axios
       .post(
