@@ -35,8 +35,6 @@ class RegisterSerilizer(serializers.ModelSerializer):
         else:
             user = User.objects.create_user(
                 validated_data['username'], validated_data['email'], password=validated_data['password'])
-            user.first_name = self.validated_data['first_name']
-            user.last_name = self.validated_data['last_name']
             user.is_active = False
             user.save()
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
