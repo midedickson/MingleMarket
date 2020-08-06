@@ -31,9 +31,6 @@ INSTALLED_APPS = [
     'accounts',
     'chat',
 
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount.providers.facebook',
     'channels',
     'rest_framework',
     'corsheaders',
