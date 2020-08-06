@@ -13,6 +13,6 @@ urlpatterns = [
     path('api/chat/', include('chat.api.urls'), name='chat'),
     path('accounts/', include('accounts.urls'), name='accounts'),
     path('activate/<uidb64>/<token>/',
-         VerificationView.as_view(), name='activate')
+         VerificationView.as_view(), name='activate'),
     path('', TemplateView.as_view(template_name='index.html'), name='frontend'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
