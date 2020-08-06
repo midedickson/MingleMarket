@@ -18,13 +18,16 @@ class Login extends React.Component {
 
   authenticate = (e) => {
     e.preventDefault();
-
-    this.props.signup(
-      e.target.username.value,
-      e.target.email.value,
-      e.target.password.value,
-      e.target.password2.value
-    );
+    if (e.target.password.value != e.target.password2.value) {
+      this.props.showAlert("Passwords Don't Match");
+    } else {
+      this.props.signup(
+        e.target.username.value,
+        e.target.email.value,
+        e.target.password.value,
+        this.props.token
+      );
+    }
   };
 
   render() {
@@ -88,6 +91,19 @@ class Login extends React.Component {
                                   id="inputPassword"
                                   className="form-control"
                                   placeholder="Enter Password"
+                                  required
+                                />
+                                <label htmlFor="inputPassword2">
+                                  Enter Password
+                                </label>
+                              </div>
+                              <div className="form-label-group">
+                                <input
+                                  type="password"
+                                  name="password2"
+                                  id="inputPassword2"
+                                  className="form-control"
+                                  placeholder="Confirm Password"
                                   required
                                 />
                                 <label htmlFor="inputPassword">
@@ -158,11 +174,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    showAlert: (content) => dispatch(navActions.showAlert(content)),
     login: (userName, password) =>
       dispatch(authActions.authLogin(userName, password)),
     logout: () => dispatch(authActions.logout()),
-    signup: (username, email, password) =>
-      dispatch(authActions.authSignup(username, email, password)),
+    signup: (username, email, password, token) =>
+      dispatch(authActions.authSignup(username, email, password, token)),
     addChat: () => dispatch(navActions.openAddChatPopup()),
   };
 };

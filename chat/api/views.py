@@ -9,12 +9,17 @@ from rest_framework.generics import (
     CreateAPIView,
     DestroyAPIView,
     UpdateAPIView,
-    RetrieveUpdateAPIView
+    RetrieveUpdateAPIView, views
 )
 from rest_framework import viewsets
 from chat.models import Chat, Contact
 from .serializers import *
 from rest_framework.decorators import api_view
+
+
+class VerificationView(views.APIView):
+    def get(self, request, uidb64, token):
+        return Response({'message': 'E-mail has been verified! You can login!'})
 
 
 def get_user_contact(username):

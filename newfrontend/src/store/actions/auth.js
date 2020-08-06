@@ -79,20 +79,27 @@ export const authLogin = (username, password) => {
   };
 };
 
-export const authSignup = (username, email, password) => {
+export const authSignup = (username, email, password, token) => {
   return (dispatch) => {
     dispatch(authStart());
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    };
     axios
-      .post(baseUrl + "accounts/api/auth/register", {
-        username: username,
-        email: email,
-        password: password,
-      })
+      .post(
+        baseUrl + "accounts/api/auth/register",
+        {
+          username: username,
+          email: email,
+          password: password,
+        },
+        { headers: headers }
+      )
       .then((res) => {
         const token = res.data.token;
         localStorage.setItem("token", token);
         localStorage.setItem("username", username);
-        dispatch(authSuccess(username, token));
       })
       .catch((err) => {
         console.log(err.response);

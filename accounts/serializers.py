@@ -1,7 +1,12 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-
+from django.urls import reverse
+from django.conf import settings
+from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.sites.shortcuts import get_current_site
+from utils import token_generator
 # User Serializer
 
 
@@ -27,13 +32,25 @@ class RegisterSerilizer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 'This e-mail has already been used by another user'
             )
+        else:
+            user = User.objects.create_user(
+                validated_data['username'], validated_data['email'], password=validated_data['password'])
+            user.first_name = self.validated_data['first_name']
+            user.last_name = self.validated_data['last_name']
+            user.is_active = False
+            user.save()
+            uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+            domain = get_current_site(request).domain
+            link = reverse('activate', kwargs={
+                           'uidb64': uidb64, 'token': token_generator.make_token(user)})
+            subject = 'Welcome, ' + user.first_name + '!'
+            message = 'Thank You for registering with Us.\n For Certain security measures, \
+                we are sending you this to verify your email address, Click on the link below to activate your account!\n' + 'https://' + domain + link
+            mail = EmailMessage(
+                subject, message, settings.EMAIL_HOST_USER, [email])
+            mail.send(fail_silently=False)
 
-        user = User.objects.create_user(
-            validated_data['username'], validated_data['email'], password=validated_data['password'])
-        user.first_name = self.validated_data['first_name']
-        user.last_name = self.validated_data['last_name']
-        user.save()
-        return user
+            return user
 # Login Serializer
 
 
