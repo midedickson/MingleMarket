@@ -38,7 +38,7 @@ class RegisterSerilizer(serializers.ModelSerializer):
             user.is_active = False
             user.save()
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-            domain = get_current_site(request).domain
+            domain = get_current_site(self.request).domain
             link = reverse('activate', kwargs={
                            'uidb64': uidb64, 'token': token_generator.make_token(user)})
             subject = 'Welcome, ' + user.first_name + '!'
