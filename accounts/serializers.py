@@ -43,7 +43,7 @@ class RegisterSerilizer(serializers.ModelSerializer):
                            'uidb64': uidb64, 'token': token_generator.make_token(user)})
             subject = 'Welcome, ' + user.first_name + '!'
             message = 'Thank You for registering with Us.\n For Certain security measures, \
-                we are sending you this to verify your email address, Click on the link below to activate your account!\n' + 'https://' + link
+                we are sending you this to verify your email address, Click on the link below to activate your account!\n' + 'https://mingle-market.herokuapp.com' + link
             mail = EmailMessage(
                 subject, message, settings.EMAIL_HOST_USER, [email])
             mail.send(fail_silently=False)
