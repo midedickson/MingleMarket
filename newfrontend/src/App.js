@@ -7,7 +7,6 @@ import * as navActions from "./store/actions/nav";
 import * as msgActions from "./store/actions/message";
 import BaseRouter from "./routes";
 import Sidepanel from "./containers/Sidepanel";
-import Profile from "./containers/Profile";
 import WebSocketInstance from "./websocket";
 import AddChatModal from "./containers/Popup";
 import Homepage from "./containers/Homepage";
@@ -34,7 +33,8 @@ class App extends React.Component {
     };
     WebSocketInstance.addCallbacks(
       this.props.setMessages.bind(this),
-      this.props.addMessage.bind(this)
+      this.props.addMessage.bind(this),
+      this.props.getOnlineUsers.bind(this)
     );
     this.toggleConfetti = this.toggleConfetti.bind(this);
     this.toggleBackground = this.toggleBackground.bind(this);
@@ -199,6 +199,7 @@ const mapDispatchToProps = (dispatch) => {
     closeAddChatPopup: () => dispatch(navActions.closeAddChatPopup()),
     addMessage: (message) => dispatch(msgActions.addMessage(message)),
     setMessages: (messages) => dispatch(msgActions.setMessages(messages)),
+    getOnlineUsers: (users) => dispatch(msgActions.getOnlineUsers(users)),
   };
 };
 

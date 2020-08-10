@@ -21,6 +21,7 @@ class Contact(models.Model):
     catch_phrase = models.CharField(
         max_length=100, default='P.S I have no special talent, I\'m just passionately curious')
     warning = models.BooleanField(default=False)
+    online = models.BooleanField(default=True)
 
     def __str__(self):
         return self.user.username

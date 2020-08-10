@@ -3,7 +3,9 @@ from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from .models import Message
 from django.contrib.auth.models import User
-from .views import get_last_10_messages, get_user_contact, get_current_chat
+from .models import Contact
+from .views import get_last_10_messages, get_user_contact, get_current_chat, get_online_users
+
 
 class ChatConsumer(WebsocketConsumer):
     def fetch_messages(self, data):
@@ -38,19 +40,45 @@ class ChatConsumer(WebsocketConsumer):
         return {
             'id': message.id,
             'author': message.contact.user.username,
+            'author_photo': message.contact.photo
             'content': message.content,
             'timestamp': str(message.timestamp)
         }
 
+    def online_users(self):
+        users = Contact.objects.filter(online=True)
+        content = {
+            'command': 'online_users',
+            'users': self.users_to_json(users)
+        }
+        self.send(text_data=content)
+
+     def users_to_json(self, users):
+        result = []
+        for user in users:
+            result.append(self.user_to_json(user))
+        return result[:15]
+
+    def user_to_json(self, user):
+        return {
+            'id': user.id,
+            'contact_photo': user.contact_set.photo,
+            'username': user.username,
+        }
+
     commands = {
         'fetch_messages': fetch_messages,
-        'new_message': new_message
+        'new_message': new_message,
+        'online_users': online_users
     }
 
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
-
+        self.user = self.scope['user']
+        contact = get_user_contact(self.user.username)
+        contact.online = True
+        contact.save()
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
@@ -60,6 +88,10 @@ class ChatConsumer(WebsocketConsumer):
         self.accept()
 
     def disconnect(self, close_code):
+        self.user = self.scope["user"]
+        contact = get_user_contact(self.user.username)
+        contact.online = False
+        conatct.save()
         # Leave room group
         async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name,

@@ -15,3 +15,7 @@ def get_user_contact(username):
 
 def get_current_chat(chatId):
     return get_object_or_404(Chat, id=chatId)
+
+
+def get_online_users():
+    return Contact.objects.filter(online=True)

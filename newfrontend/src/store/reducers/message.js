@@ -4,6 +4,7 @@ import { updateObject } from "../utility";
 const initialState = {
   messages: [],
   chats: [],
+  online_users: [],
 };
 
 const addMessage = (state, action) => {
@@ -16,6 +17,10 @@ const setMessages = (state, action) => {
   return updateObject(state, {
     messages: action.messages.reverse(),
   });
+};
+
+const activeUsers = (state, action) => {
+  return updateObject(state, { online_users: action.payload });
 };
 
 const setChats = (state, action) => {
@@ -32,6 +37,8 @@ const msgReducer = (state = initialState, action) => {
       return setMessages(state, action);
     case actionTypes.GET_CHATS_SUCCESS:
       return setChats(state, action);
+    case actionTypes.GET_ONLINE_USERS:
+      return activeUsers(state, action);
     default:
       return state;
   }

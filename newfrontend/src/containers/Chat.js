@@ -42,11 +42,9 @@ class Chat extends React.Component {
     const component = this;
     setTimeout(function () {
       if (WebSocketInstance.state() === 1) {
-        console.log("Connection is made");
         callback();
         return;
       } else {
-        console.log("wait for connection...");
         component.waitForSocketConnection(callback);
       }
     }, 100);

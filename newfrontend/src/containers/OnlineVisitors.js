@@ -2,8 +2,23 @@ import React, { Fragment } from "react";
 import Login from "./Login";
 import ConfettiAni from "./Confetti";
 import Playboy from "../assets/background-video.mp4";
-
+import { connect } from "react-redux";
 class Footer extends React.Component {
+  renderOnlineUsers = (users) => {
+    const currentUser = this.props.username;
+    return users.map((user, i, arr) => (
+      <li className="nav-item">
+        <div className="active_img_cont">
+          <img
+            src={user.contact_photo}
+            alt={user.username}
+            className="rounded-circle active_user_img"
+          />
+          <span className="active_online_icon"></span>
+        </div>
+      </li>
+    ));
+  };
   render() {
     return (
       <nav className="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
@@ -25,44 +40,20 @@ class Footer extends React.Component {
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <div className="nav-item active_users_count btn btn-danger">
-                <span className="text-dark">123345</span>
+                <span className="text-dark">{this.props.users.length}</span>
               </div>
             </li>
-            <li className="nav-item">
-              <div className="active_img_cont">
-                <img
-                  src="http://emilcarlsson.se/assets/harveyspecter.png"
-                  alt=""
-                  className="rounded-circle active_user_img"
-                />
-                <span className="active_online_icon"></span>
-              </div>
-            </li>
-            <li className="nav-item">
-              <div className="active_img_cont">
-                <img
-                  src="http://emilcarlsson.se/assets/harveyspecter.png"
-                  alt=""
-                  className="rounded-circle active_user_img"
-                />
-                <span className="active_online_icon"></span>
-              </div>
-            </li>
-            <li className="nav-item">
-              <div className="active_img_cont">
-                <img
-                  src="http://emilcarlsson.se/assets/harveyspecter.png"
-                  alt=""
-                  className="rounded-circle active_user_img"
-                />
-                <span className="active_online_icon"></span>
-              </div>
-            </li>
+            {this.renderOnlineUsers(this.props.users)}
           </ul>
         </div>
       </nav>
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    users: state.message.users,
+  };
+};
 
-export default Footer;
+export default connect(mapStateToProps)(Footer);

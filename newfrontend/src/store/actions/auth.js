@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
-
+import * as navActions from "./nav";
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START,
@@ -73,8 +73,8 @@ export const authLogin = (username, password) => {
       })
       .catch((err) => {
         console.log(err.response);
-
         dispatch(authFail(err));
+        dispatch(navActions.showAlert(err.response.data));
       });
   };
 };

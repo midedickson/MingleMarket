@@ -23,6 +23,13 @@ const getUserChatsSuccess = (chats) => {
   };
 };
 
+export const getOnlineUsers = (users) => {
+  return {
+    type: actionTypes.GET_ONLINE_USERS,
+    users: users,
+  };
+};
+
 export const getUserChats = (username, token) => {
   return (dispatch) => {
     const headers = {

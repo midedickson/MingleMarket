@@ -38,7 +38,7 @@ class RegisterSerilizer(serializers.ModelSerializer):
                 validated_data['username'], validated_data['email'], password=validated_data['password'])
             user.is_active = False
             user.save()
-            uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+            uidb64 = force_bytes(urlsafe_base64_encode(user.pk))
             link = reverse('activate', kwargs={
                            'uidb64': uidb64, 'token': token_generator.make_token(user)})
             subject = 'Welcome, ' + user.first_name + '!'

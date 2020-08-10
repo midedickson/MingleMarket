@@ -15,10 +15,23 @@ from rest_framework import viewsets
 from chat.models import Chat, Contact
 from .serializers import *
 from rest_framework.decorators import api_view
+from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from accounts.utils import token_generator
 
 
 class VerificationView(views.APIView):
     def get(self, request, uidb64, token):
+        try:
+            id = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(id=id)
+            if not token_generator(user, token):
+                return Response({'message': 'Your is already Activated!'})
+
+            user.is_active = True
+            user.save()
+        except Exception as ex:
+            pass
         return Response({'message': 'E-mail has been verified! You can login!'})
 
 

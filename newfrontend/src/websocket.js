@@ -50,6 +50,9 @@ class WebSocketService {
     if (command === "new_message") {
       this.callbacks[command](parsedData.message);
     }
+    if (command === "online_users") {
+      this.callbacks[command](parsedData.users);
+    }
   }
 
   fetchMessages(username, chatId) {
@@ -68,10 +71,17 @@ class WebSocketService {
       chatId: message.chatId,
     });
   }
+  getOnlineUsers(users) {
+    this.sendMessage({
+      command: "online_users",
+      users: users,
+    });
+  }
 
-  addCallbacks(messagesCallbacks, newMessageCallbacks) {
+  addCallbacks(messagesCallbacks, newMessageCallbacks, getOnlineUsers) {
     this.callbacks["messages"] = messagesCallbacks;
     this.callbacks["new_message"] = newMessageCallbacks;
+    this.callbacks["online_users"] = getOnlineUsers;
   }
 
   sendMessage(data) {
