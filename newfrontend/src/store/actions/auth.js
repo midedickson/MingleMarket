@@ -74,7 +74,7 @@ export const authLogin = (username, password) => {
       .catch((err) => {
         console.log(err.response);
         dispatch(authFail(err));
-        dispatch(navActions.showAlert(err.response.data));
+        dispatch(navActions.showAlert(err.response.data.non_field_errors[0]));
       });
   };
 };

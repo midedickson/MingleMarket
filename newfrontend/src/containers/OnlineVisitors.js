@@ -5,7 +5,6 @@ import Playboy from "../assets/background-video.mp4";
 import { connect } from "react-redux";
 class Footer extends React.Component {
   renderOnlineUsers = (users) => {
-    const currentUser = this.props.username;
     return users.map((user, i, arr) => (
       <li className="nav-item">
         <div className="active_img_cont">
@@ -20,6 +19,7 @@ class Footer extends React.Component {
     ));
   };
   render() {
+    // const online_users = this.renderOnlineUsers(this.props.users).length();
     return (
       <nav className="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
         <span className="navbar-brand" href="#">
@@ -40,7 +40,7 @@ class Footer extends React.Component {
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <div className="nav-item active_users_count btn btn-danger">
-                <span className="text-dark">{this.props.users.length}</span>
+                <span className="text-dark"></span>
               </div>
             </li>
             {this.renderOnlineUsers(this.props.users)}
@@ -52,7 +52,7 @@ class Footer extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    users: state.message.users,
+    users: state.message.online_users,
   };
 };
 
