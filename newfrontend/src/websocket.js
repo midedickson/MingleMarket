@@ -14,7 +14,7 @@ class WebSocketService {
     // var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
     // const path =
     //   ws_scheme + "://" + window.location.host + "/ws/chat" + `/${chatURL}`;
-    const path = `ws://localhost:8000/ws/chat/${chatURL}/`;
+    const path = `ws://theminglemarket.com:8000/ws/chat/${chatURL}/`;
     console.log(path);
     this.socketRef = new WebSocket(path);
     this.socketRef.onopen = () => {
