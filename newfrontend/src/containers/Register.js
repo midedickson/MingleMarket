@@ -18,7 +18,7 @@ class Login extends React.Component {
 
   authenticate = (e) => {
     e.preventDefault();
-    if (e.target.password.value != e.target.password2.value) {
+    if (e.target.password.value !== e.target.password2.value) {
       this.props.showAlert("Passwords Don't Match");
     } else {
       this.props.signup(

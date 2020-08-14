@@ -71,10 +71,9 @@ class WebSocketService {
       chatId: message.chatId,
     });
   }
-  getOnlineUsers(users) {
+  getOnlineUsers() {
     this.sendMessage({
       command: "online_users",
-      users: users,
     });
   }
 

@@ -1,9 +1,14 @@
-import React, { Fragment } from "react";
-import Login from "./Login";
-import ConfettiAni from "./Confetti";
-import Playboy from "../assets/background-video.mp4";
+import React from "react";
+import WebSocketInstance from "../websocket";
 import { connect } from "react-redux";
 class Footer extends React.Component {
+  initialiseChat() {
+    WebSocketInstance.getOnlineUsers();
+  }
+  constructor(props) {
+    super(props);
+    this.initialiseChat();
+  }
   renderOnlineUsers = (users) => {
     return users.map((user, i, arr) => (
       <li className="nav-item">

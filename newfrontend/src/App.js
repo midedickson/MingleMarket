@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
@@ -19,7 +19,7 @@ import Support from "./containers/SupportCenter";
 import "./App.css";
 import ConfettiAni from "./containers/Confetti";
 import SkyConfetti from "./containers/Sky";
-import Footer from "./containers/OnlineVisitors";
+// import Footer from "./containers/OnlineVisitors";
 import Alerts from "./components/Alert";
 
 class App extends React.Component {
@@ -125,7 +125,6 @@ class App extends React.Component {
   }
 
   render() {
-    const { showEmojiPicker } = this.state;
     return (
       <Router>
         <Alerts />
@@ -165,7 +164,7 @@ class App extends React.Component {
                     <BaseRouter />
                   </div>
                 </div>
-                <Footer />
+                {/* <Footer /> */}
               </div>
             </BackgroundChanger>
           </Route>

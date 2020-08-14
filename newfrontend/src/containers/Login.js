@@ -83,11 +83,7 @@ class Login extends React.Component {
                               >
                                 Log in
                               </button>
-                              <div className="text-center">
-                                <a className="small" href="#">
-                                  Forgot password?
-                                </a>
-                              </div>
+                              <div className="text-center"></div>
                             </form>
                           )}
                         </div>

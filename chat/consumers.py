@@ -18,6 +18,13 @@ class ChatConsumer(WebsocketConsumer):
 
     def new_message(self, data):
         user_contact = get_user_contact(data['from'])
+        self.user = data['from']
+        print(self.user)
+        if user_contact.online:
+            pass
+        else:
+            user_contact.online = True
+            user_contact.save()
         message = Message.objects.create(
             contact=user_contact, content=data['message'])
         current_chat = get_current_chat(data['chatId'])
@@ -40,7 +47,7 @@ class ChatConsumer(WebsocketConsumer):
         return {
             'id': message.id,
             'author': message.contact.user.username,
-            'author_photo': message.contact.photo
+            'author_photo': message.contact.photo.url,
             'content': message.content,
             'timestamp': str(message.timestamp)
         }
@@ -53,7 +60,7 @@ class ChatConsumer(WebsocketConsumer):
         }
         self.send(text_data=content)
 
-     def users_to_json(self, users):
+    def users_to_json(self, users):
         result = []
         for user in users:
             result.append(self.user_to_json(user))
@@ -62,7 +69,7 @@ class ChatConsumer(WebsocketConsumer):
     def user_to_json(self, user):
         return {
             'id': user.id,
-            'contact_photo': user.contact_set.photo,
+            'contact_photo': user.contact_set.photo.url,
             'username': user.username,
         }
 
@@ -75,10 +82,6 @@ class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
-        self.user = self.scope['user']
-        contact = get_user_contact(self.user.username)
-        contact.online = True
-        contact.save()
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
@@ -88,10 +91,9 @@ class ChatConsumer(WebsocketConsumer):
         self.accept()
 
     def disconnect(self, close_code):
-        self.user = self.scope["user"]
-        contact = get_user_contact(self.user.username)
-        contact.online = False
-        conatct.save()
+        # contact = get_user_contact(self.user)
+        # contact.online = False
+        # conatact.save()
         # Leave room group
         async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name,

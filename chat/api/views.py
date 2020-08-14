@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
+from django.views.generic import View
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 from rest_framework.response import Response
@@ -20,19 +22,19 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from accounts.utils import token_generator
 
 
-class VerificationView(views.APIView):
+class VerificationView(View):
     def get(self, request, uidb64, token):
         try:
             id = force_text(urlsafe_base64_decode(uidb64))
             user = User.objects.get(id=id)
             if not token_generator(user, token):
-                return Response({'message': 'Your is already Activated!'})
+                return redirect('frontend')
 
             user.is_active = True
             user.save()
         except Exception as ex:
             pass
-        return Response({'message': 'E-mail has been verified! You can login!'})
+        return redirect('frontend')
 
 
 def get_user_contact(username):

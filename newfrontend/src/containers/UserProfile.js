@@ -13,7 +13,10 @@ class UserProfile extends React.Component {
           <div className="row">
             <div className="col-md-12">
               <div className="heading">
-                <img src="https://image.ibb.co/cbCMvA/logo.png" />
+                <img
+                  src="https://image.ibb.co/cbCMvA/logo.png"
+                  alt="user_image"
+                />
               </div>
             </div>
           </div>

@@ -6,8 +6,8 @@ export const authStart = () => {
     type: actionTypes.AUTH_START,
   };
 };
-// export const baseUrl = "http://127.0.0.1:8000/";
-export const baseUrl = "https://mingle-market.herokuapp.com/";
+export const baseUrl = "http://127.0.0.1:8000/";
+// export const baseUrl = "https://mingle-market.herokuapp.com/";
 
 export const authSuccess = (username, token) => {
   return {

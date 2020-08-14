@@ -5,7 +5,6 @@ import Hoc from "../hoc/hoc";
 import { Smile } from "react-feather";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
-
 class Chat extends React.Component {
   state = {
     message: "",
@@ -105,12 +104,18 @@ class Chat extends React.Component {
       >
         <div className="img_cont_msg">
           <img
-            src="http://emilcarlsson.se/assets/mikeross.png"
+            src={message.author_photo}
             className="rounded-circle user_img_msg"
             alt="user"
           />
         </div>
-        <div className="msg_cotainer">
+        <div
+          className={
+            message.author === currentUser
+              ? "red_msg_cotainer"
+              : "gold_msg_cotainer"
+          }
+        >
           {message.author}
           <br />
           {message.content}
@@ -121,28 +126,18 @@ class Chat extends React.Component {
       </div>
     ));
   };
-  /*
+
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   };
 
   componentDidMount() {
     this.scrollToBottom();
-  }*/
+  }
 
-  // componentDidUpdate(newProps) {
-  //   console.log(newProps);
-  //   if (this.props.match.params.chatID !== newProps.match.params.chatID) {
-  //     WebSocketInstance.disconnect();
-  //     this.waitForSocketConnection(() => {
-  //       WebSocketInstance.fetchMessages(
-  //         this.props.username,
-  //         newProps.match.params.chatID
-  //       );
-  //     });
-  //     WebSocketInstance.connect(newProps.match.params.chatID);
-  //   }
-  // }
+  componentDidUpdate(newProps) {
+    this.scrollToBottom();
+  }
 
   toggleEmojiPicker = () => {
     this.setState({
@@ -184,6 +179,12 @@ class Chat extends React.Component {
         </div>
         <div className="card-body msg_card_body">
           {this.props.messages && this.renderMessages(this.props.messages)}
+          <div
+            style={{ float: "left", clear: "both" }}
+            ref={(el) => {
+              this.messagesEnd = el;
+            }}
+          />
           {showEmojiPicker ? (
             <Picker set="apple" onSelect={this.addEmoji} />
           ) : null}
