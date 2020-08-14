@@ -203,6 +203,7 @@ body {
   background-color: #f10d06;
   padding: 10px;
   position: relative;
+  color: black;
 }
 .gold_msg_cotainer {
   margin-top: auto;
@@ -212,6 +213,7 @@ body {
   background-color: #9e7004;
   padding: 10px;
   position: relative;
+  color: black;
 }
 .msg_time {
   position: inherit;
