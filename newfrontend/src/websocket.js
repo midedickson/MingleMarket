@@ -11,10 +11,10 @@ class WebSocketService {
     this.socketRef = null;
   }
   connect(chatURL) {
-    // var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-    // const path =
-    //   ws_scheme + "://" + window.location.host + "/ws/chat" + `/${chatURL}`;
-    const path = `ws://theminglemarket.com:8000/ws/chat/${chatURL}/`;
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    const path =
+      ws_scheme + "://" + window.location.host + "/ws/chat" + `/${chatURL}`;
+    // const path = `ws://theminglemarket.com:8000/ws/chat/${chatURL}/`;
     console.log(path);
     this.socketRef = new WebSocket(path);
     this.socketRef.onopen = () => {
