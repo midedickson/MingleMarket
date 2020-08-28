@@ -55,7 +55,7 @@ class App extends React.Component {
     }, 100);
   }
 
-  baseUrl = "http://theminglemarket.com:8000/api/chat/animation/";
+  baseUrl = "http://www.theminglemarket.com/api/chat/animation/";
   headers = {
     "Content-Type": "application/json",
   };
