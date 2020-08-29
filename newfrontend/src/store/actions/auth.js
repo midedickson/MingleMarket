@@ -6,7 +6,7 @@ export const authStart = () => {
     type: actionTypes.AUTH_START,
   };
 };
-export const baseUrl = "http://theminglemarket.com:8000/";
+export const baseUrl = "http://" + window.location.host + "/";
 // export const baseUrl = "https://mingle-market.herokuapp.com/";
 
 export const authSuccess = (username, token) => {
