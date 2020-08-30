@@ -13,7 +13,7 @@ class WebSocketService {
   connect(chatURL) {
     var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
     const path =
-      ws_scheme + "://" + window.location.host + "/ws/chat" + `/${chatURL}`;
+      ws_scheme + "://" + window.location.host + "/ws/chat" + `/${chatURL}/`;
     // const path = `ws://theminglemarket.com:8000/ws/chat/${chatURL}/`;
     console.log(path);
     this.socketRef = new WebSocket(path);
@@ -50,9 +50,9 @@ class WebSocketService {
     if (command === "new_message") {
       this.callbacks[command](parsedData.message);
     }
-    if (command === "online_users") {
-      this.callbacks[command](parsedData.users);
-    }
+    // if (command === "online_users") {
+    //   this.callbacks[command](parsedData.users);
+    // }
   }
 
   fetchMessages(username, chatId) {
@@ -71,18 +71,21 @@ class WebSocketService {
       chatId: message.chatId,
     });
   }
-  getOnlineUsers() {
-    this.sendMessage({
-      command: "online_users",
-    });
-  }
+  // getOnlineUsers() {
+  //   this.sendMessage({
+  //     command: "online_users",
+  //   });
+  // }
 
-  addCallbacks(messagesCallbacks, newMessageCallbacks, getOnlineUsers) {
+  // addCallbacks(messagesCallbacks, newMessageCallbacks, getOnlineUsers) {
+  //   this.callbacks["messages"] = messagesCallbacks;
+  //   this.callbacks["new_message"] = newMessageCallbacks;
+  //   this.callbacks["online_users"] = getOnlineUsers;
+  // }
+  addCallbacks(messagesCallbacks, newMessageCallbacks) {
     this.callbacks["messages"] = messagesCallbacks;
     this.callbacks["new_message"] = newMessageCallbacks;
-    this.callbacks["online_users"] = getOnlineUsers;
   }
-
   sendMessage(data) {
     try {
       this.socketRef.send(JSON.stringify({ ...data }));

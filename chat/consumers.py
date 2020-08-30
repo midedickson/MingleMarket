@@ -20,11 +20,11 @@ class ChatConsumer(WebsocketConsumer):
         user_contact = get_user_contact(data['from'])
         self.user = data['from']
         print(self.user)
-        if user_contact.online:
-            pass
-        else:
-            user_contact.online = True
-            user_contact.save()
+        # if user_contact.online:
+        #     pass
+        # else:
+        #     user_contact.online = True
+        #     user_contact.save()
         message = Message.objects.create(
             contact=user_contact, content=data['message'])
         current_chat = get_current_chat(data['chatId'])
@@ -52,31 +52,10 @@ class ChatConsumer(WebsocketConsumer):
             'timestamp': str(message.timestamp)
         }
 
-    def online_users(self):
-        users = Contact.objects.filter(online=True)
-        content = {
-            'command': 'online_users',
-            'users': self.users_to_json(users)
-        }
-        self.send(text_data=content)
-
-    def users_to_json(self, users):
-        result = []
-        for user in users:
-            result.append(self.user_to_json(user))
-        return result[:15]
-
-    def user_to_json(self, user):
-        return {
-            'id': user.id,
-            'contact_photo': user.contact_set.photo.url,
-            'username': user.username,
-        }
-
     commands = {
         'fetch_messages': fetch_messages,
-        'new_message': new_message,
-        'online_users': online_users
+        'new_message': new_message
+        # 'online_users': online_users
     }
 
     def connect(self):

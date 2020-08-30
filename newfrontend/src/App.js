@@ -33,8 +33,7 @@ class App extends React.Component {
     };
     WebSocketInstance.addCallbacks(
       this.props.setMessages.bind(this),
-      this.props.addMessage.bind(this),
-      this.props.getOnlineUsers.bind(this)
+      this.props.addMessage.bind(this)
     );
     this.toggleConfetti = this.toggleConfetti.bind(this);
     this.toggleBackground = this.toggleBackground.bind(this);
@@ -75,7 +74,7 @@ class App extends React.Component {
           });
         })
         .catch((err) => console.log(err));
-    }, 5000);
+    }, 600000);
   }
 
   componentWillUnmount() {
@@ -198,7 +197,6 @@ const mapDispatchToProps = (dispatch) => {
     closeAddChatPopup: () => dispatch(navActions.closeAddChatPopup()),
     addMessage: (message) => dispatch(msgActions.addMessage(message)),
     setMessages: (messages) => dispatch(msgActions.setMessages(messages)),
-    getOnlineUsers: (users) => dispatch(msgActions.getOnlineUsers(users)),
   };
 };
 
