@@ -29,7 +29,7 @@ class WebSocketService {
     };
     this.socketRef.onclose = () => {
       console.log("websocket is closed");
-      this.connect();
+      this.connect(chatURL);
     };
   }
   disconnect() {
