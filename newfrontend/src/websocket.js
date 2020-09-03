@@ -25,7 +25,7 @@ class WebSocketService {
       this.socketNewMessage(e.data);
     };
     this.socketRef.onerror = (e) => {
-      console.log(e.mesage);
+      console.log(e.message);
     };
     this.socketRef.onclose = () => {
       console.log("websocket is closed");
@@ -90,7 +90,7 @@ class WebSocketService {
     try {
       this.socketRef.send(JSON.stringify({ ...data }));
     } catch (err) {
-      console.log(err.mesasge);
+      console.log(err.message);
     }
   }
 
